@@ -27,9 +27,11 @@ function App() {
     if (isFunMode) {
       document.body.classList.add('fun-mode');
       if (favicon) favicon.href = "/logo_baothu.png";
+      document.title = "Tiệm của các con báo";
     } else {
       document.body.classList.remove('fun-mode');
       if (favicon) favicon.href = "/logo.png";
+      document.title = "Tiệm Hồng Trà Ngô Gia";
     }
   }, [isFunMode]);
 
