@@ -31,10 +31,26 @@ function App() {
     .filter(member => member.investment > 0)
     .map(member => ({
       name: member.name,
-      value: member.investment
+      value: member.investment,
+      role: member.role
     }));
 
   const COLORS = ['#0056b3', '#ec4899', '#3b82f6', '#10b981', '#f59e0b'];
+
+  const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      const data = payload[0].payload;
+      const percent = (data.value / totalInvestment * 100).toFixed(1);
+      return (
+        <div style={{ padding: '1rem', borderRadius: '12px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', backdropFilter: 'var(--glass-blur)', color: 'var(--text-primary)', boxShadow: 'var(--glass-shadow-default)' }}>
+          <p style={{ fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.25rem', color: 'var(--primary)' }}>{data.name}</p>
+          <p style={{ fontSize: '0.9rem', marginBottom: '0.25rem' }}>{data.role}</p>
+          <p style={{ fontSize: '0.9rem', fontWeight: 'bold' }}>Cổ phần: {percent}%</p>
+        </div>
+      );
+    }
+    return null;
+  };
 
   const steps = [
     {
@@ -133,21 +149,7 @@ function App() {
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} style={{ outline: 'none' }} />
                   ))}
                 </Pie>
-                <Tooltip 
-                  formatter={(value) => {
-                    const percent = (value / totalInvestment * 100).toFixed(1);
-                    return [`${percent}% (${value}tr)`, 'Cổ phần'];
-                  }}
-                  contentStyle={{ 
-                    borderRadius: '12px', 
-                    background: 'var(--glass-bg)', 
-                    border: '1px solid var(--glass-border)', 
-                    backdropFilter: 'var(--glass-blur)',
-                    color: 'var(--text-primary)',
-                    boxShadow: 'var(--glass-shadow-default)'
-                  }} 
-                  itemStyle={{ fontWeight: 'bold', color: 'var(--primary)' }}
-                />
+                <Tooltip content={<CustomTooltip />} />
                 <Legend verticalAlign="bottom" height={36} iconType="circle" wrapperStyle={{ paddingTop: '20px' }}/>
               </PieChart>
             </ResponsiveContainer>
