@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Users, Clock, MapPin, Store, Building2, ChevronRight, User, Sun, Moon } from 'lucide-react';
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import './index.css';
 import './App.css';
 
@@ -25,6 +26,15 @@ function App() {
   ];
 
   const totalInvestment = team.reduce((sum, member) => sum + member.investment, 0);
+
+  const chartData = team
+    .filter(member => member.investment > 0)
+    .map(member => ({
+      name: member.name,
+      value: member.investment
+    }));
+
+  const COLORS = ['#0056b3', '#ec4899', '#3b82f6', '#10b981', '#f59e0b'];
 
   const steps = [
     {
@@ -99,7 +109,38 @@ function App() {
       {/* Team Section */}
       <section className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
         <h2 className="section-title">Thành Viên <span className="text-gradient">& Cổ Đông</span></h2>
-        <div className="team-grid">
+        
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          {/* Chart Card */}
+          <div className="glass-card" style={{ height: '400px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <h3 style={{ marginBottom: '1rem', color: 'var(--text-primary)', fontSize: '1.2rem' }}>Tỉ Lệ Cổ Phần Đầu Tư</h3>
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={chartData}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={70}
+                  outerRadius={110}
+                  paddingAngle={5}
+                  dataKey="value"
+                  labelLine={true}
+                  label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
+                >
+                  {chartData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip 
+                  formatter={(value) => [`${value}tr`, 'Góp vốn']} 
+                  contentStyle={{ borderRadius: '8px', background: 'var(--glass-bg)', border: '1px solid var(--glass-border)' }} 
+                />
+                <Legend verticalAlign="bottom" height={36}/>
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+
+          <div className="team-grid" style={{ marginTop: '0' }}>
           {team.map((member, idx) => (
             <div key={idx} className="glass-card team-card">
               <div className="avatar-wrapper">
@@ -120,6 +161,7 @@ function App() {
               </div>
             </div>
           ))}
+        </div>
         </div>
       </section>
 
