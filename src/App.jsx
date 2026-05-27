@@ -86,8 +86,9 @@ function App() {
 
       {/* Header Section */}
       <section className="hero-section animate-fade-in">
-        <h1 className="section-title text-gradient" style={{ fontSize: '3.5rem', marginBottom: '1rem' }}>
-          Dự Án Tiệm Trà
+        <img src="/logo.png" alt="Hồng Trà Ngô Gia Logo" className="hero-logo" onError={(e) => e.target.style.display = 'none'} />
+        <h1 className="section-title text-gradient" style={{ fontSize: '3.5rem', marginBottom: '1rem', marginTop: '1rem' }}>
+          Tiệm Hồng Trà Ngô Gia
         </h1>
         <p className="hero-subtitle">
           Nơi cập nhật thông tin, tiến độ và chi phí nội bộ cho các cổ đông và thành viên mới.
@@ -172,7 +173,7 @@ function App() {
       </section>
       
       <footer style={{ textAlign: 'center', padding: '2rem', color: 'var(--text-secondary)' }}>
-        <p>© 2026 Dự Án Tiệm Trà. Nội bộ.</p>
+        <p>© 2026 Tiệm Hồng Trà Ngô Gia. Nội bộ.</p>
       </footer>
     </div>
   );

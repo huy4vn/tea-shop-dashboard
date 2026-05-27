@@ -14,6 +14,16 @@
   padding: 4rem 1rem;
 }
 
+.hero-logo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 10px 30px var(--glass-shadow);
+  border: 4px solid var(--glass-border);
+  background: white;
+}
+
 .hero-subtitle {
   color: var(--text-secondary);
   font-size: 1.2rem;
