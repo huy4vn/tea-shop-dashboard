@@ -86,7 +86,7 @@ function App() {
 
       {/* Header Section */}
       <section className="hero-section animate-fade-in">
-        <img src="/logo.png" alt="Hồng Trà Ngô Gia Logo" className="hero-logo" onError={(e) => e.target.style.display = 'none'} />
+        <img src="/logo.jpeg" alt="Hồng Trà Ngô Gia Logo" className="hero-logo" onError={(e) => e.target.style.display = 'none'} />
         <h1 className="section-title text-gradient" style={{ fontSize: '3.5rem', marginBottom: '1rem', marginTop: '1rem' }}>
           Tiệm Hồng Trà Ngô Gia
         </h1>
