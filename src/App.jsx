@@ -8,6 +8,9 @@ import './App.css';
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
+  const [isFunMode, setIsFunMode] = useState(false);
+  const toggleFunMode = () => setIsFunMode(!isFunMode);
+
   useEffect(() => {
     if (isDarkMode) {
       document.body.classList.add('dark');
@@ -25,9 +28,6 @@ function App() {
   }, [isFunMode]);
 
   const toggleTheme = () => setIsDarkMode(!isDarkMode);
-
-  const [isFunMode, setIsFunMode] = useState(false);
-  const toggleFunMode = () => setIsFunMode(!isFunMode);
 
   const currentConfig = isFunMode ? configs.fun : configs.serious;
   const team = currentConfig.team;
