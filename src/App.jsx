@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Users, Clock, MapPin, Store, Building2, ChevronRight, User, Sun, Moon, Smile, Briefcase } from 'lucide-react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { motion } from 'framer-motion';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
 import { configs } from './data.js';
@@ -171,7 +172,12 @@ function App() {
       )}
 
       {/* Header Section */}
-      <section className="hero-section animate-fade-in">
+      <motion.section 
+        className="hero-section"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, type: 'spring', bounce: 0.4 }}
+      >
         <img src={isFunMode ? "/logo_baothu.png" : "/logo.png"} alt="Logo" className="hero-logo" onError={(e) => e.target.style.display = 'none'} />
         <h1 className="section-title text-gradient" style={{ fontSize: '3.5rem', marginBottom: '1rem', marginTop: '1rem' }}>
           {currentConfig.siteTitle}
@@ -179,15 +185,24 @@ function App() {
         <p className="hero-subtitle">
           {currentConfig.subtitle}
         </p>
-      </section>
+      </motion.section>
 
       {/* Team Section */}
-      <section className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
+      <motion.section 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6 }}
+      >
         <h2 className="section-title">{currentConfig.sectionTeam} <span className="text-gradient">{currentConfig.sectionTeamHighlight}</span></h2>
         
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           {/* Chart Card */}
-          <div className="glass-card chart-card" style={{ height: '400px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <motion.div 
+            className="glass-card chart-card" 
+            style={{ height: '400px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+            whileHover={{ scale: 1.02, boxShadow: '0px 10px 30px rgba(0,0,0,0.1)' }}
+          >
             <p style={{ textAlign: 'center', marginBottom: '1rem', fontWeight: 'bold', color: 'var(--text-primary)' }}>{currentConfig.chartTitle}</p>
             <ResponsiveContainer width="100%" height="100%">
               <PieChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
@@ -212,11 +227,19 @@ function App() {
                 <Legend verticalAlign="bottom" height={36} iconType="circle" wrapperStyle={{ paddingTop: '20px' }}/>
               </PieChart>
             </ResponsiveContainer>
-          </div>
+          </motion.div>
 
           <div className="team-grid" style={{ marginTop: '0' }}>
           {team.map((member, idx) => (
-            <div key={idx} className="glass-card team-card">
+            <motion.div 
+              key={idx} 
+              className="glass-card team-card"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1, duration: 0.4 }}
+              whileHover={{ scale: 1.05, y: -5 }}
+            >
               <div className="avatar-wrapper">
                 <User size={30} />
               </div>
@@ -233,46 +256,81 @@ function App() {
                   </p>
                 )}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Timeline Section */}
-      <section className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
+      <motion.section 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6 }}
+      >
         <h2 className="section-title">{currentConfig.sectionTimeline} <span className="text-gradient">{currentConfig.sectionTimelineHighlight}</span></h2>
         <div className="timeline-container">
           {currentConfig.steps.map((step, idx) => (
-            <div key={idx} className="timeline-item">
+            <motion.div 
+              key={idx} 
+              className="timeline-item"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: idx * 0.15, duration: 0.5, type: 'spring' }}
+            >
               <div className="timeline-dot"></div>
-              <div className="glass-card timeline-content">
+              <motion.div 
+                className="glass-card timeline-content"
+                whileHover={{ scale: 1.03, x: 10 }}
+              >
                 <h3 className="timeline-title">{step.title}</h3>
                 <p className="timeline-desc">{step.desc}</p>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
       {/* Location Section */}
-      <section className="animate-fade-in" style={{ animationDelay: '0.6s' }}>
+      <motion.section 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6 }}
+      >
         <h2 className="section-title">{currentConfig.sectionLocation} <span className="text-gradient">{currentConfig.sectionLocationHighlight}</span></h2>
         
         <div className="location-grid">
           <div className="location-info">
             {currentConfig.locationItems.map((item, idx) => (
-              <div key={idx} className="glass-card info-item">
+              <motion.div 
+                key={idx} 
+                className="glass-card info-item"
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.15, duration: 0.5 }}
+                whileHover={{ scale: 1.05 }}
+              >
                 {locationIcons[idx]}
                 <div className="info-text">
                   <h4>{item.title}</h4>
                   <p>{item.desc}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
 
-          <div className="glass-card map-container">
+          <motion.div 
+            className="glass-card map-container"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            whileHover={{ boxShadow: '0px 15px 40px rgba(0,0,0,0.2)' }}
+          >
             <iframe 
               src="https://maps.google.com/maps?q=Ch%E1%BB%A3%20Thu%E1%BA%ADn%20%C4%90%E1%BA%A1o,%20B%E1%BA%BFn%20L%E1%BB%A9c&t=&z=15&ie=UTF8&iwloc=&output=embed" 
               allowFullScreen="" 
@@ -280,9 +338,9 @@ function App() {
               referrerPolicy="no-referrer-when-downgrade"
               title="Chợ Thuận Đạo Map"
             ></iframe>
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
       
       <footer style={{ textAlign: 'center', padding: '2rem', color: 'var(--text-secondary)' }}>
         <p>{currentConfig.footerText}</p>
