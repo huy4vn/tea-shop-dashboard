@@ -16,6 +16,14 @@ function App() {
     }
   }, [isDarkMode]);
 
+  useEffect(() => {
+    if (isFunMode) {
+      document.body.classList.add('fun-mode');
+    } else {
+      document.body.classList.remove('fun-mode');
+    }
+  }, [isFunMode]);
+
   const toggleTheme = () => setIsDarkMode(!isDarkMode);
 
   const [isFunMode, setIsFunMode] = useState(false);
