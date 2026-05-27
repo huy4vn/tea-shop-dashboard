@@ -42,35 +42,35 @@ body.dark {
   --glass-hover-border: rgba(255, 255, 255, 0.1);
 }
 
-/* Chế độ Báo Thủ (Fun Mode) */
+/* Chế độ Báo Thủ (Fun Mode) - Theme Báo Hồng */
 body.fun-mode {
-  --bg-color: #fef08a;
-  --bg-gradient: linear-gradient(135deg, #fef08a 0%, #fde047 50%, #facc15 100%);
-  --text-primary: #1c1917;
-  --text-secondary: #44403c;
-  --primary: #d97706;
-  --primary-glow: rgba(217, 119, 6, 0.4);
-  --secondary: #b45309;
+  --bg-color: #fce7f3;
+  --bg-gradient: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 50%, #f9a8d4 100%);
+  --text-primary: #831843;
+  --text-secondary: #be185d;
+  --primary: #db2777;
+  --primary-glow: rgba(219, 39, 119, 0.4);
+  --secondary: #f472b6;
   
   --glass-bg: rgba(255, 255, 255, 0.5);
-  --glass-border: rgba(0, 0, 0, 0.2);
-  --glass-shadow: rgba(217, 119, 6, 0.2);
-  --glass-hover-border: rgba(0, 0, 0, 0.4);
+  --glass-border: rgba(219, 39, 119, 0.2);
+  --glass-shadow: rgba(219, 39, 119, 0.2);
+  --glass-hover-border: rgba(219, 39, 119, 0.5);
 }
 
 body.fun-mode.dark {
-  --bg-color: #1c1917;
-  --bg-gradient: linear-gradient(135deg, #1c1917 0%, #292524 50%, #44403c 100%);
-  --text-primary: #fef08a;
-  --text-secondary: #fde047;
-  --primary: #facc15;
-  --primary-glow: rgba(250, 204, 21, 0.4);
-  --secondary: #eab308;
+  --bg-color: #4c0519;
+  --bg-gradient: linear-gradient(135deg, #4c0519 0%, #831843 50%, #9d174d 100%);
+  --text-primary: #fce7f3;
+  --text-secondary: #fbcfe8;
+  --primary: #f43f5e;
+  --primary-glow: rgba(244, 63, 94, 0.4);
+  --secondary: #fb7185;
   
   --glass-bg: rgba(0, 0, 0, 0.4);
-  --glass-border: rgba(250, 204, 21, 0.2);
-  --glass-shadow: rgba(250, 204, 21, 0.2);
-  --glass-hover-border: rgba(250, 204, 21, 0.5);
+  --glass-border: rgba(244, 63, 94, 0.3);
+  --glass-shadow: rgba(244, 63, 94, 0.3);
+  --glass-hover-border: rgba(244, 63, 94, 0.6);
 }
 
 
