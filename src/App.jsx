@@ -96,33 +96,8 @@ function App() {
     return null;
   };
 
-  const steps = [
-    {
-      title: 'Chốt Khu Vực',
-      desc: 'Đã tạm chốt khu vực với phía phát triển thị trường, nhằm mục đích khoanh vùng không cho người khác mở và tuyển dụng 2 nhân viên để đi học.',
-      icon: <MapPin size={24} />
-    },
-    {
-      title: 'Ký Hợp Đồng & Thanh Toán',
-      desc: 'Sau khi đủ 4 người, gồm 2 quản lý và 2 nhân viên sẽ lên hợp đồng với công ty, thanh toán đợt 1 cho công ty (số tiền báo sau).',
-      icon: <Store size={24} />
-    },
-    {
-      title: 'Học Việc Chi Nhánh',
-      desc: 'Chị Phương sẽ học tại chi nhánh Quận 5, và 3 người còn lại sẽ học tại chi nhánh Bến Lức.',
-      icon: <Users size={24} />
-    },
-    {
-      title: 'Thời Gian Học',
-      desc: 'Dự kiến học trong khoảng từ 10 - 15 ngày (thời gian này sẽ có tính lương cho nhân viên và quản lý, tính như thế nào thì sẽ báo sau).',
-      icon: <Clock size={24} />
-    },
-    {
-      title: 'Setup & Bán Thử',
-      desc: 'Sau khi 4 bạn tốt nghiệp và tìm được mặt bằng sẽ setup và bán thử.',
-      icon: <ChevronRight size={24} />
-    }
-  ];
+  const stepIcons = [<MapPin size={24} />, <Store size={24} />, <Users size={24} />, <Clock size={24} />, <ChevronRight size={24} />];
+  const locationIcons = [<MapPin className="info-icon" size={28} />, <Users className="info-icon" size={28} />, <Building2 className="info-icon" size={28} />];
 
   return (
     <div className="app-container">
@@ -208,12 +183,12 @@ function App() {
 
       {/* Team Section */}
       <section className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
-        <h2 className="section-title">Thành Viên <span className="text-gradient">& Cổ Đông</span></h2>
+        <h2 className="section-title">{currentConfig.sectionTeam} <span className="text-gradient">{currentConfig.sectionTeamHighlight}</span></h2>
         
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           {/* Chart Card */}
-          <div className="glass-card" style={{ height: '400px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <h3 style={{ marginBottom: '1rem', color: 'var(--text-primary)', fontSize: '1.2rem' }}>Tỉ Lệ Cổ Phần Đầu Tư</h3>
+          <div className="glass-card chart-card" style={{ height: '400px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <p style={{ textAlign: 'center', marginBottom: '1rem', fontWeight: 'bold', color: 'var(--text-primary)' }}>{currentConfig.chartTitle}</p>
             <ResponsiveContainer width="100%" height="100%">
               <PieChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
                 <Pie
@@ -266,9 +241,9 @@ function App() {
 
       {/* Timeline Section */}
       <section className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
-        <h2 className="section-title">Lịch Trình <span className="text-gradient">Dự Kiến</span></h2>
+        <h2 className="section-title">{currentConfig.sectionTimeline} <span className="text-gradient">{currentConfig.sectionTimelineHighlight}</span></h2>
         <div className="timeline-container">
-          {steps.map((step, idx) => (
+          {currentConfig.steps.map((step, idx) => (
             <div key={idx} className="timeline-item">
               <div className="timeline-dot"></div>
               <div className="glass-card timeline-content">
@@ -282,33 +257,19 @@ function App() {
 
       {/* Location Section */}
       <section className="animate-fade-in" style={{ animationDelay: '0.6s' }}>
-        <h2 className="section-title">Khảo Sát <span className="text-gradient">Mặt Bằng</span></h2>
+        <h2 className="section-title">{currentConfig.sectionLocation} <span className="text-gradient">{currentConfig.sectionLocationHighlight}</span></h2>
         
         <div className="location-grid">
           <div className="location-info">
-            <div className="glass-card info-item">
-              <MapPin className="info-icon" size={28} />
-              <div className="info-text">
-                <h4>Vị trí khoanh vùng</h4>
-                <p>Ngay Chợ Thuận Đạo, đối diện có khu CN Thuận Đạo và ChingLuh.</p>
+            {currentConfig.locationItems.map((item, idx) => (
+              <div key={idx} className="glass-card info-item">
+                {locationIcons[idx]}
+                <div className="info-text">
+                  <h4>{item.title}</h4>
+                  <p>{item.desc}</p>
+                </div>
               </div>
-            </div>
-
-            <div className="glass-card info-item">
-              <Users className="info-icon" size={28} />
-              <div className="info-text">
-                <h4>Khu dân cư đông đúc</h4>
-                <p>Khu vực dân cư tập trung đông, chợ kéo dài từ sáng tới đêm khuya.</p>
-              </div>
-            </div>
-
-            <div className="glass-card info-item">
-              <Building2 className="info-icon" size={28} />
-              <div className="info-text">
-                <h4>Khảo sát thực tế</h4>
-                <p>Đã đi khảo sát lúc 19g và 21g. Sẽ tiếp tục đi khảo sát thêm ban ngày để có đánh giá chính xác nhất.</p>
-              </div>
-            </div>
+            ))}
           </div>
 
           <div className="glass-card map-container">
