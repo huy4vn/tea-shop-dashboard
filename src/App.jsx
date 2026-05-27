@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Users, Clock, MapPin, Store, Building2, ChevronRight, User, Sun, Moon } from 'lucide-react';
+import { Users, Clock, MapPin, Store, Building2, ChevronRight, User, Sun, Moon, Smile, Briefcase } from 'lucide-react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { configs } from './data.js';
 import './index.css';
 import './App.css';
 
@@ -17,13 +18,11 @@ function App() {
 
   const toggleTheme = () => setIsDarkMode(!isDarkMode);
 
-  const team = [
-    { name: 'Chị Trân', role: 'Người đứng ra mở', investment: 250 },
-    { name: 'Phúc & Huy', role: 'Em gái chị Trân và chồng của Phúc', investment: 100 },
-    { name: 'Phạm Quang (Sa)', role: 'Em của Mi', investment: 100 },
-    { name: 'Chị Mi', role: 'Quản lý 1', investment: 50 },
-    { name: 'Chị Phương', role: 'Quản lý 2', investment: 0 },
-  ];
+  const [isFunMode, setIsFunMode] = useState(false);
+  const toggleFunMode = () => setIsFunMode(!isFunMode);
+
+  const currentConfig = isFunMode ? configs.fun : configs.serious;
+  const team = currentConfig.team;
 
   const totalInvestment = team.reduce((sum, member) => sum + member.investment, 0);
 
@@ -107,6 +106,32 @@ function App() {
         {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
       </button>
 
+      {/* Fun Mode Toggle */}
+      <button 
+        onClick={toggleFunMode}
+        style={{
+          position: 'absolute',
+          top: '20px',
+          right: '75px',
+          background: isFunMode ? 'var(--primary)' : 'var(--glass-bg)',
+          border: '1px solid var(--glass-border)',
+          borderRadius: '50%',
+          width: '45px',
+          height: '45px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer',
+          color: isFunMode ? '#fff' : 'var(--text-primary)',
+          zIndex: 100,
+          backdropFilter: 'var(--glass-blur)',
+          transition: 'all 0.3s ease'
+        }}
+        title="Toggle Fun Mode"
+      >
+        {isFunMode ? <Smile size={20} /> : <Briefcase size={20} />}
+      </button>
+
       {/* Decorative Circles */}
       <div className="bg-circle bg-circle-1"></div>
       <div className="bg-circle bg-circle-2"></div>
@@ -115,7 +140,7 @@ function App() {
       <section className="hero-section animate-fade-in">
         <img src="/logo.jpeg" alt="Hồng Trà Ngô Gia Logo" className="hero-logo" onError={(e) => e.target.style.display = 'none'} />
         <h1 className="section-title text-gradient" style={{ fontSize: '3.5rem', marginBottom: '1rem', marginTop: '1rem' }}>
-          Tiệm Hồng Trà Ngô Gia
+          {currentConfig.siteTitle}
         </h1>
         <p className="hero-subtitle">
           Nơi cập nhật thông tin, tiến độ và chi phí nội bộ cho các cổ đông và thành viên mới.
@@ -240,7 +265,7 @@ function App() {
       </section>
       
       <footer style={{ textAlign: 'center', padding: '2rem', color: 'var(--text-secondary)' }}>
-        <p>© 2026 Tiệm Hồng Trà Ngô Gia. Nội bộ.</p>
+        <p>{currentConfig.footerText}</p>
       </footer>
     </div>
   );
