@@ -177,7 +177,7 @@ function App() {
           {currentConfig.siteTitle}
         </h1>
         <p className="hero-subtitle">
-          Nơi cập nhật thông tin, tiến độ và chi phí nội bộ cho các cổ đông và thành viên mới.
+          {currentConfig.subtitle}
         </p>
       </section>
 
