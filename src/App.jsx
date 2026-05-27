@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Users, Clock, MapPin, Store, Building2, ChevronRight, User, Sun, Moon, Smile, Briefcase } from 'lucide-react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { motion } from 'framer-motion';
+import Tilt from 'react-parallax-tilt';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
 import { configs } from './data.js';
@@ -198,64 +199,66 @@ function App() {
         
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           {/* Chart Card */}
-          <motion.div 
-            className="glass-card chart-card" 
-            style={{ height: '400px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
-            whileHover={{ scale: 1.02, boxShadow: '0px 10px 30px rgba(0,0,0,0.1)' }}
-          >
-            <p style={{ textAlign: 'center', marginBottom: '1rem', fontWeight: 'bold', color: 'var(--text-primary)' }}>{currentConfig.chartTitle}</p>
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
-                <Pie
-                  data={chartData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={65}
-                  outerRadius={110}
-                  paddingAngle={5}
-                  dataKey="value"
-                  isAnimationActive={true}
-                  animationBegin={200}
-                  animationDuration={1500}
-                  animationEasing="ease-out"
-                >
-                  {chartData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} style={{ outline: 'none' }} />
-                  ))}
-                </Pie>
-                <Tooltip content={<CustomTooltip />} />
-                <Legend verticalAlign="bottom" height={36} iconType="circle" wrapperStyle={{ paddingTop: '20px' }}/>
-              </PieChart>
-            </ResponsiveContainer>
+          <motion.div>
+            <Tilt 
+              className="glass-card chart-card" 
+              style={{ height: '400px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+              glareEnable={true} glareMaxOpacity={0.15} glareColor="#ffffff" glarePosition="all" scale={1.02} transitionSpeed={1500}
+            >
+              <p style={{ textAlign: 'center', marginBottom: '1rem', fontWeight: 'bold', color: 'var(--text-primary)' }}>{currentConfig.chartTitle}</p>
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+                  <Pie
+                    data={chartData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={65}
+                    outerRadius={110}
+                    paddingAngle={5}
+                    dataKey="value"
+                    isAnimationActive={true}
+                    animationBegin={200}
+                    animationDuration={1500}
+                    animationEasing="ease-out"
+                  >
+                    {chartData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} style={{ outline: 'none' }} />
+                    ))}
+                  </Pie>
+                  <Tooltip content={<CustomTooltip />} />
+                  <Legend verticalAlign="bottom" height={36} iconType="circle" wrapperStyle={{ paddingTop: '20px' }}/>
+                </PieChart>
+              </ResponsiveContainer>
+            </Tilt>
           </motion.div>
 
           <div className="team-grid" style={{ marginTop: '0' }}>
           {team.map((member, idx) => (
             <motion.div 
               key={idx} 
-              className="glass-card team-card"
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1, duration: 0.4 }}
-              whileHover={{ scale: 1.05, y: -5 }}
             >
-              <div className="avatar-wrapper">
-                <User size={30} />
-              </div>
-              <div className="team-info">
-                <h3>{member.name}</h3>
-                <p>{member.role}</p>
-                {member.investment > 0 ? (
-                  <p style={{ marginTop: '0.5rem', fontWeight: 'bold', color: 'var(--primary)' }}>
-                    Cổ phần: {Number((member.investment / totalInvestment * 100).toFixed(1))}%
-                  </p>
-                ) : (
-                  <p style={{ marginTop: '0.5rem', fontWeight: 'bold', color: 'var(--text-secondary)' }}>
-                    Không hùn vốn
-                  </p>
-                )}
-              </div>
+              <Tilt className="glass-card team-card" glareEnable={true} glareMaxOpacity={0.3} glareColor="#ffffff" glarePosition="all" scale={1.05} transitionSpeed={2000}>
+                <div className="avatar-wrapper">
+                  <User size={30} />
+                </div>
+                <div className="team-info">
+                  <h3>{member.name}</h3>
+                  <p>{member.role}</p>
+                  {member.investment > 0 ? (
+                    <p style={{ marginTop: '0.5rem', fontWeight: 'bold', color: 'var(--primary)' }}>
+                      Cổ phần: {Number((member.investment / totalInvestment * 100).toFixed(1))}%
+                    </p>
+                  ) : (
+                    <p style={{ marginTop: '0.5rem', fontWeight: 'bold', color: 'var(--text-secondary)' }}>
+                      Không hùn vốn
+                    </p>
+                  )}
+                </div>
+              </Tilt>
             </motion.div>
           ))}
         </div>
@@ -281,13 +284,13 @@ function App() {
               transition={{ delay: idx * 0.15, duration: 0.5, type: 'spring' }}
             >
               <div className="timeline-dot"></div>
-              <motion.div 
+              <Tilt 
                 className="glass-card timeline-content"
-                whileHover={{ scale: 1.03, x: 10 }}
+                glareEnable={true} glareMaxOpacity={0.3} glareColor="#ffffff" glarePosition="all" scale={1.03} transitionSpeed={2000}
               >
                 <h3 className="timeline-title">{step.title}</h3>
                 <p className="timeline-desc">{step.desc}</p>
-              </motion.div>
+              </Tilt>
             </motion.div>
           ))}
         </div>
@@ -307,37 +310,37 @@ function App() {
             {currentConfig.locationItems.map((item, idx) => (
               <motion.div 
                 key={idx} 
-                className="glass-card info-item"
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.15, duration: 0.5 }}
-                whileHover={{ scale: 1.05 }}
               >
-                {locationIcons[idx]}
-                <div className="info-text">
-                  <h4>{item.title}</h4>
-                  <p>{item.desc}</p>
-                </div>
+                <Tilt className="glass-card info-item" glareEnable={true} glareMaxOpacity={0.3} glareColor="#ffffff" glarePosition="all" scale={1.05} transitionSpeed={2000}>
+                  {locationIcons[idx]}
+                  <div className="info-text">
+                    <h4>{item.title}</h4>
+                    <p>{item.desc}</p>
+                  </div>
+                </Tilt>
               </motion.div>
             ))}
           </div>
 
           <motion.div 
-            className="glass-card map-container"
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            whileHover={{ boxShadow: '0px 15px 40px rgba(0,0,0,0.2)' }}
           >
-            <iframe 
-              src="https://maps.google.com/maps?q=Ch%E1%BB%A3%20Thu%E1%BA%ADn%20%C4%90%E1%BA%A1o,%20B%E1%BA%BFn%20L%E1%BB%A9c&t=&z=15&ie=UTF8&iwloc=&output=embed" 
-              allowFullScreen="" 
-              loading="lazy" 
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Chợ Thuận Đạo Map"
-            ></iframe>
+            <Tilt className="glass-card map-container" glareEnable={true} glareMaxOpacity={0.3} glareColor="#ffffff" glarePosition="all" scale={1.02} transitionSpeed={2000}>
+              <iframe 
+                src="https://maps.google.com/maps?q=Ch%E1%BB%A3%20Thu%E1%BA%ADn%20%C4%90%E1%BA%A1o,%20B%E1%BA%BFn%20L%E1%BB%A9c&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                allowFullScreen="" 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Chợ Thuận Đạo Map"
+              ></iframe>
+            </Tilt>
           </motion.div>
         </div>
       </motion.section>
