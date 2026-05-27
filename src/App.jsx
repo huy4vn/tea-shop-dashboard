@@ -17,13 +17,14 @@ function App() {
   const toggleTheme = () => setIsDarkMode(!isDarkMode);
 
   const team = [
-    { name: 'Chị Trân', role: 'Người đứng ra mở' },
-    { name: 'Chị Mi', role: 'Người sẽ làm quản lý' },
-    { name: 'Phạm Phương', role: 'Chị của Mi' },
-    { name: 'Phạm Quang', role: 'Em của Mi' },
-    { name: 'Phúc', role: 'Em gái của c Trân' },
-    { name: 'Lê Minh Huy', role: 'Chồng của Phúc' },
+    { name: 'Chị Trân', role: 'Người đứng ra mở', investment: 250 },
+    { name: 'Phúc & Huy', role: 'Em gái & chồng của Phúc', investment: 100 },
+    { name: 'Phạm Quang (Sa)', role: 'Em của Mi', investment: 100 },
+    { name: 'Chị Mi', role: 'Quản lý 1', investment: 50 },
+    { name: 'Chị Phương', role: 'Quản lý 2', investment: 0 },
   ];
+
+  const totalInvestment = team.reduce((sum, member) => sum + member.investment, 0);
 
   const steps = [
     {
@@ -107,6 +108,15 @@ function App() {
               <div className="team-info">
                 <h3>{member.name}</h3>
                 <p>{member.role}</p>
+                {member.investment > 0 ? (
+                  <p style={{ marginTop: '0.5rem', fontWeight: 'bold', color: 'var(--primary)' }}>
+                    Góp vốn: {member.investment}tr ({Number((member.investment / totalInvestment * 100).toFixed(1))}%)
+                  </p>
+                ) : (
+                  <p style={{ marginTop: '0.5rem', fontWeight: 'bold', color: 'var(--text-secondary)' }}>
+                    Không hùn vốn
+                  </p>
+                )}
               </div>
             </div>
           ))}
