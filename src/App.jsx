@@ -19,7 +19,7 @@ function App() {
 
   const team = [
     { name: 'Chị Trân', role: 'Người đứng ra mở', investment: 250 },
-    { name: 'Phúc & Huy', role: 'Em gái & chồng của Phúc', investment: 100 },
+    { name: 'Phúc & Huy', role: 'Em gái chị Trân và chồng của Phúc', investment: 100 },
     { name: 'Phạm Quang (Sa)', role: 'Em của Mi', investment: 100 },
     { name: 'Chị Mi', role: 'Quản lý 1', investment: 50 },
     { name: 'Chị Phương', role: 'Quản lý 2', investment: 0 },
