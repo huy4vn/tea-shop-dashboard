@@ -40,6 +40,35 @@ function App() {
   const currentConfig = isFunMode ? configs.fun : configs.serious;
   const team = currentConfig.team;
 
+  const drawKite = (ctx) => {
+    ctx.scale(1.2, 1.2);
+    ctx.beginPath();
+    ctx.moveTo(0, -10);
+    ctx.lineTo(8, 0);
+    ctx.lineTo(0, 15);
+    ctx.lineTo(-8, 0);
+    ctx.closePath();
+    ctx.fill();
+    
+    ctx.beginPath();
+    ctx.moveTo(0, -10);
+    ctx.lineTo(0, 15);
+    ctx.moveTo(-8, 0);
+    ctx.lineTo(8, 0);
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(0, 15);
+    ctx.lineTo(4, 22);
+    ctx.lineTo(-4, 27);
+    ctx.lineTo(2, 32);
+    ctx.strokeStyle = ctx.fillStyle; 
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+  };
+
   const totalInvestment = team.reduce((sum, member) => sum + member.investment, 0);
 
   const chartData = team
@@ -158,9 +187,10 @@ function App() {
           <Confetti
             width={width}
             height={height}
-            colors={['#f472b6', '#db2777', '#be185d', '#fce7f3', '#fbcfe8']}
-            numberOfPieces={250}
-            gravity={0.15}
+            drawShape={drawKite}
+            colors={['#f472b6', '#3b82f6', '#facc15', '#10b981', '#ec4899', '#ef4444']}
+            numberOfPieces={80}
+            gravity={0.08}
           />
         </div>
       )}
