@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Users, Clock, MapPin, Store, Building2, ChevronRight, User, Sun, Moon, Smile, Briefcase } from 'lucide-react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import Snowfall from 'react-snowfall';
 import { configs } from './data.js';
 import './index.css';
 import './App.css';
@@ -146,6 +147,19 @@ function App() {
       {/* Decorative Circles */}
       <div className="bg-circle bg-circle-1"></div>
       <div className="bg-circle bg-circle-2"></div>
+
+      {/* Retro Yahoo Blog Snow Effect */}
+      {isFunMode && (
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: 9999 }}>
+          <Snowfall 
+            color={isDarkMode ? "#fbcfe8" : "#db2777"} 
+            snowflakeCount={150} 
+            radius={[1.0, 4.0]} 
+            speed={[0.5, 2.0]} 
+            wind={[-0.5, 1.5]} 
+          />
+        </div>
+      )}
 
       {/* Header Section */}
       <section className="hero-section animate-fade-in">
