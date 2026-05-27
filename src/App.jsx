@@ -110,7 +110,7 @@ function App() {
                 <p>{member.role}</p>
                 {member.investment > 0 ? (
                   <p style={{ marginTop: '0.5rem', fontWeight: 'bold', color: 'var(--primary)' }}>
-                    Góp vốn: {member.investment}tr ({Number((member.investment / totalInvestment * 100).toFixed(1))}%)
+                    Cổ phần: {Number((member.investment / totalInvestment * 100).toFixed(1))}%
                   </p>
                 ) : (
                   <p style={{ marginTop: '0.5rem', fontWeight: 'bold', color: 'var(--text-secondary)' }}>
