@@ -16,6 +16,13 @@ function App() {
   const [isFunMode, setIsFunMode] = useState(false);
   const toggleFunMode = () => setIsFunMode(!isFunMode);
 
+  const audioRef = React.useRef(null);
+  useEffect(() => {
+    audioRef.current = new Audio('/fun_audio.mp3');
+    audioRef.current.loop = true;
+    audioRef.current.volume = 0.5;
+  }, []);
+
   useEffect(() => {
     if (isDarkMode) {
       document.body.classList.add('dark');
@@ -23,6 +30,16 @@ function App() {
       document.body.classList.remove('dark');
     }
   }, [isDarkMode]);
+
+  useEffect(() => {
+    if (!audioRef.current) return;
+    if (isFunMode) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch(e => console.log('Audio error:', e));
+    } else {
+      audioRef.current.pause();
+    }
+  }, [isFunMode]);
 
   useEffect(() => {
     const favicon = document.querySelector('link[rel="icon"]');
