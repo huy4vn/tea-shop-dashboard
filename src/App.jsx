@@ -115,27 +115,40 @@ function App() {
           <div className="glass-card" style={{ height: '400px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <h3 style={{ marginBottom: '1rem', color: 'var(--text-primary)', fontSize: '1.2rem' }}>Tỉ Lệ Cổ Phần Đầu Tư</h3>
             <ResponsiveContainer width="100%" height="100%">
-              <PieChart margin={{ top: 20, right: 30, bottom: 20, left: 30 }}>
+              <PieChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
                 <Pie
                   data={chartData}
                   cx="50%"
                   cy="50%"
-                  innerRadius={50}
-                  outerRadius={80}
+                  innerRadius={65}
+                  outerRadius={110}
                   paddingAngle={5}
                   dataKey="value"
-                  labelLine={true}
-                  label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
+                  isAnimationActive={true}
+                  animationBegin={200}
+                  animationDuration={1500}
+                  animationEasing="ease-out"
                 >
                   {chartData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} style={{ outline: 'none' }} />
                   ))}
                 </Pie>
                 <Tooltip 
-                  formatter={(value) => [`${value}tr`, 'Góp vốn']} 
-                  contentStyle={{ borderRadius: '8px', background: 'var(--glass-bg)', border: '1px solid var(--glass-border)' }} 
+                  formatter={(value) => {
+                    const percent = (value / totalInvestment * 100).toFixed(1);
+                    return [`${percent}% (${value}tr)`, 'Cổ phần'];
+                  }}
+                  contentStyle={{ 
+                    borderRadius: '12px', 
+                    background: 'var(--glass-bg)', 
+                    border: '1px solid var(--glass-border)', 
+                    backdropFilter: 'var(--glass-blur)',
+                    color: 'var(--text-primary)',
+                    boxShadow: 'var(--glass-shadow-default)'
+                  }} 
+                  itemStyle={{ fontWeight: 'bold', color: 'var(--primary)' }}
                 />
-                <Legend verticalAlign="bottom" height={36}/>
+                <Legend verticalAlign="bottom" height={36} iconType="circle" wrapperStyle={{ paddingTop: '20px' }}/>
               </PieChart>
             </ResponsiveContainer>
           </div>
