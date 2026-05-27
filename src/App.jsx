@@ -22,7 +22,7 @@ function App() {
     { name: 'Phạm Phương', role: 'Chị của Mi' },
     { name: 'Phạm Quang', role: 'Em của Mi' },
     { name: 'Phúc', role: 'Em gái của c Trân' },
-    { name: 'Lê Minh Huy', role: 'Em rể của c Trân' },
+    { name: 'Lê Minh Huy', role: 'Chồng của Phúc' },
   ];
 
   const steps = [
