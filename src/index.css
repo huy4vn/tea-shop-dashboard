@@ -45,7 +45,7 @@ body.dark {
 /* Chế độ Báo Thủ (Fun Mode) - Theme Báo Hồng */
 body.fun-mode {
   --bg-color: #fce7f3;
-  --bg-gradient: url('/fun_bg.png') center/cover;
+  --bg-gradient: url('/fun_bg.png') repeat 0 0 / 400px;
   --text-primary: #831843;
   --text-secondary: #be185d;
   --primary: #db2777;
@@ -60,7 +60,7 @@ body.fun-mode {
 
 body.fun-mode.dark {
   --bg-color: #4c0519;
-  --bg-gradient: linear-gradient(135deg, rgba(76,5,25,0.9), rgba(131,24,67,0.9)), url('/fun_bg.png') center/cover;
+  --bg-gradient: linear-gradient(135deg, rgba(76,5,25,0.85), rgba(131,24,67,0.95)), url('/fun_bg.png') repeat 0 0 / 400px;
   --text-primary: #fce7f3;
   --text-secondary: #fbcfe8;
   --primary: #f43f5e;
