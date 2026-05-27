@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Users, Clock, MapPin, Store, Building2, ChevronRight, User, Sun, Moon, Smile, Briefcase } from 'lucide-react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
-import Snowfall from 'react-snowfall';
+import Confetti from 'react-confetti';
+import { useWindowSize } from 'react-use';
 import { configs } from './data.js';
 import './index.css';
 import './App.css';
 
 function App() {
+  const { width, height } = useWindowSize();
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const [isFunMode, setIsFunMode] = useState(false);
@@ -148,15 +150,15 @@ function App() {
       <div className="bg-circle bg-circle-1"></div>
       <div className="bg-circle bg-circle-2"></div>
 
-      {/* Retro Yahoo Blog Snow Effect */}
+      {/* Spectacular Confetti Effect */}
       {isFunMode && (
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: 9999 }}>
-          <Snowfall 
-            color={isDarkMode ? "#fbcfe8" : "#db2777"} 
-            snowflakeCount={150} 
-            radius={[1.0, 4.0]} 
-            speed={[0.5, 2.0]} 
-            wind={[-0.5, 1.5]} 
+          <Confetti
+            width={width}
+            height={height}
+            colors={['#f472b6', '#db2777', '#be185d', '#fce7f3', '#fbcfe8']}
+            numberOfPieces={250}
+            gravity={0.15}
           />
         </div>
       )}
