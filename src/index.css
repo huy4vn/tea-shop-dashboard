@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Color Palette - Fresh Tea Theme (Light) */
-  --bg-color: #f8fafc;
-  --bg-gradient: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #ffffff 100%);
-  --text-primary: #064e3b;
-  --text-secondary: #047857;
-  --primary: #059669;
-  --primary-glow: rgba(5, 150, 105, 0.15);
-  --secondary: #d97706;
+  /* Color Palette - Hồng Trà Ngô Gia Theme (Light) */
+  --bg-color: #ffffff;
+  --bg-gradient: linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #fce7f3 100%);
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --primary: #0056b3;
+  --primary-glow: rgba(0, 86, 179, 0.15);
+  --secondary: #ec4899;
   
   /* Glassmorphism Light Mode */
   --glass-bg: rgba(255, 255, 255, 0.65);
@@ -26,12 +26,12 @@
 body.dark {
   /* Color Palette - Dark Theme */
   --bg-color: #0f172a;
-  --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  --bg-gradient: linear-gradient(135deg, #0f172a 0%, #172554 100%);
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
-  --primary: #10b981;
-  --primary-glow: rgba(16, 185, 129, 0.4);
-  --secondary: #3b82f6;
+  --primary: #3b82f6;
+  --primary-glow: rgba(59, 130, 246, 0.4);
+  --secondary: #f472b6;
   
   /* Glassmorphism Dark Mode */
   --glass-bg: rgba(255, 255, 255, 0.03);
@@ -124,7 +124,7 @@ section {
 .bg-circle-1 {
   width: 400px;
   height: 400px;
-  background: rgba(16, 185, 129, 0.15);
+  background: rgba(59, 130, 246, 0.15);
   top: -10%;
   left: -10%;
 }
@@ -132,7 +132,7 @@ section {
 .bg-circle-2 {
   width: 500px;
   height: 500px;
-  background: rgba(59, 130, 246, 0.15);
+  background: rgba(236, 72, 153, 0.15);
   bottom: -10%;
   right: -10%;
 }
