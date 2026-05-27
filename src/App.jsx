@@ -20,10 +20,13 @@ function App() {
   }, [isDarkMode]);
 
   useEffect(() => {
+    const favicon = document.querySelector('link[rel="icon"]');
     if (isFunMode) {
       document.body.classList.add('fun-mode');
+      if (favicon) favicon.href = "/logo_baothu.png";
     } else {
       document.body.classList.remove('fun-mode');
+      if (favicon) favicon.href = "/logo.jpeg";
     }
   }, [isFunMode]);
 
@@ -146,7 +149,7 @@ function App() {
 
       {/* Header Section */}
       <section className="hero-section animate-fade-in">
-        <img src="/logo.jpeg" alt="Hồng Trà Ngô Gia Logo" className="hero-logo" onError={(e) => e.target.style.display = 'none'} />
+        <img src={isFunMode ? "/logo_baothu.png" : "/logo.jpeg"} alt="Logo" className="hero-logo" onError={(e) => e.target.style.display = 'none'} />
         <h1 className="section-title text-gradient" style={{ fontSize: '3.5rem', marginBottom: '1rem', marginTop: '1rem' }}>
           {currentConfig.siteTitle}
         </h1>
