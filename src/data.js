@@ -15,7 +15,7 @@ export const configs = {
       },
       {
         title: 'Ký Hợp Đồng & Thanh Toán',
-        desc: 'Sau khi đủ 4 người, gồm 2 quản lý và 2 nhân viên sẽ lên hợp đồng với công ty, thanh toán đợt 1 cho công ty (số tiền báo sau).'
+        desc: 'Dự kiến ngày 16/06 hoặc 17/06/2026 công ty cho lên hợp đồng lần 1. Giá NQ chính thức là 293.160.000đ, phí NQ được giảm dự kiến là 185.160.000đ. Có thể thanh toán thành 2 lần: lần 1 vào ngày 16/06 hoặc 17/06/2026, lần 2 là sau khi học xong trước khi khai trương tiệm.'
       },
       {
         title: 'Học Việc Chi Nhánh',
@@ -70,7 +70,7 @@ export const configs = {
       },
       {
         title: 'Bút Sa Gà Chết & Rơi Tiền',
-        desc: 'Gom đủ 4 tay chơi (2 trùm, 2 lính) là ký giấy bán mình, cống nạp tiền họ đợt 1 (số bao nhiêu thì từ từ rồi hết hồn).'
+        desc: 'Ngày 16/06 hoặc 17/06/2026 ký giấy bán mình lần 1. Giá NQ chính thức là 293.160.000đ, nhưng được giảm dự kiến còn 185.160.000đ. Đóng họ 2 đợt: đợt 1 vào ngày 16/06 hoặc 17/06/2026, đợt 2 sau khi tu luyện xong chuẩn bị lùa khách.'
       },
       {
         title: 'Tu Luyện Võ Công',
