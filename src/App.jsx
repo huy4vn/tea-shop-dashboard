@@ -181,8 +181,8 @@ const Mascot = () => {
       }}
     >
       <div 
-        onClick={handleMascotClick}
-        style={{ fontSize: '100px', filter: 'drop-shadow(0 10px 10px rgba(0,0,0,0.5))', pointerEvents: 'auto', cursor: 'pointer' }}
+        onPointerDown={handleMascotClick}
+        style={{ fontSize: '100px', filter: 'drop-shadow(0 10px 10px rgba(0,0,0,0.5))', pointerEvents: 'auto', cursor: 'pointer', touchAction: 'none' }}
       >
         {emoji}
       </div>
