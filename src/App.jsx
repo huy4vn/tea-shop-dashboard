@@ -113,12 +113,7 @@ function App() {
       const data = payload[0].payload;
       const percent = (data.value / totalInvestment * 100).toFixed(1);
       
-  const drawMoney = (ctx) => {
-    ctx.font = '24px serif';
-    ctx.fillText('💸', 0, 0);
-  };
-
-  return (
+      return (
 
         <div style={{ padding: '1rem', borderRadius: '12px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', backdropFilter: 'var(--glass-blur)', color: 'var(--text-primary)', boxShadow: 'var(--glass-shadow-default)' }}>
           <p style={{ fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.25rem', color: 'var(--primary)' }}>{data.name}</p>
@@ -132,6 +127,11 @@ function App() {
 
   const stepIcons = [<MapPin size={24} />, <Store size={24} />, <Users size={24} />, <Clock size={24} />, <ChevronRight size={24} />];
   const locationIcons = [<MapPin className="info-icon" size={28} />, <Users className="info-icon" size={28} />, <Building2 className="info-icon" size={28} />];
+
+  const drawMoney = (ctx) => {
+    ctx.font = '24px serif';
+    ctx.fillText('💸', 0, 0);
+  };
 
   return (
     <div className="app-container">
