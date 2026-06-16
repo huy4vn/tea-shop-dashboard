@@ -11,12 +11,12 @@
   --secondary: #ec4899;
   
   /* Glassmorphism Light Mode */
-  --glass-bg: rgba(255, 255, 255, 0.65);
-  --glass-border: rgba(0, 86, 179, 0.15);
-  --glass-blur: blur(16px);
-  --glass-shadow: rgba(0, 86, 179, 0.15);
-  --glass-shadow-default: 0 8px 20px rgba(0, 0, 0, 0.06);
-  --glass-hover-border: rgba(0, 86, 179, 0.3);
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --glass-blur: blur(24px);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  --glass-shadow-default: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+  --glass-hover-border: rgba(255, 255, 255, 0.9);
   
   /* Radii */
   --radius-sm: 8px;
@@ -35,11 +35,11 @@ body.dark {
   --secondary: #f472b6;
   
   /* Glassmorphism Dark Mode */
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.05);
-  --glass-shadow: rgba(0, 0, 0, 0.3);
-  --glass-shadow-default: 0 8px 20px rgba(0, 0, 0, 0.2);
-  --glass-hover-border: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(15, 23, 42, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+  --glass-shadow-default: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+  --glass-hover-border: rgba(255, 255, 255, 0.2);
 }
 
 /* Chế độ Báo Thủ (Fun Mode) - Theme Báo Hồng */
@@ -54,10 +54,10 @@ body.fun-mode {
   --primary-glow: rgba(219, 39, 119, 0.4);
   --secondary: #f472b6;
   
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(219, 39, 119, 0.2);
-  --glass-shadow: rgba(219, 39, 119, 0.2);
-  --glass-hover-border: rgba(219, 39, 119, 0.5);
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --glass-shadow: 0 8px 32px 0 rgba(219, 39, 119, 0.2);
+  --glass-hover-border: rgba(255, 255, 255, 0.9);
 }
 
 body.fun-mode.dark {
@@ -71,10 +71,10 @@ body.fun-mode.dark {
   --primary-glow: rgba(244, 63, 94, 0.4);
   --secondary: #fb7185;
   
-  --glass-bg: rgba(0, 0, 0, 0.4);
-  --glass-border: rgba(244, 63, 94, 0.3);
-  --glass-shadow: rgba(244, 63, 94, 0.3);
-  --glass-hover-border: rgba(244, 63, 94, 0.6);
+  --glass-bg: rgba(0, 0, 0, 0.5);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px 0 rgba(244, 63, 94, 0.4);
+  --glass-hover-border: rgba(255, 255, 255, 0.2);
 }
 
 

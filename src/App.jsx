@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Users, Clock, MapPin, Store, Building2, ChevronRight, User, Sun, Moon, Smile, Briefcase } from 'lucide-react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { motion } from 'framer-motion';
-import Tilt from 'react-parallax-tilt';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
 import { configs } from './data.js';
@@ -217,11 +216,7 @@ function App() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           {/* Chart Card */}
           <motion.div>
-            <Tilt 
-              className="glass-card chart-card" 
-              style={{ height: '400px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
-              glareEnable={true} glareMaxOpacity={0.8} glareBorderRadius="16px" glareColor="#ffffff" glarePosition="all" scale={1.02} transitionSpeed={1500}
-            >
+            <div className="glass-card chart-card">
               <p style={{ textAlign: 'center', marginBottom: '1rem', fontWeight: 'bold', color: 'var(--text-primary)' }}>{currentConfig.chartTitle}</p>
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
@@ -246,7 +241,7 @@ function App() {
                   <Legend verticalAlign="bottom" height={36} iconType="circle" wrapperStyle={{ paddingTop: '20px' }}/>
                 </PieChart>
               </ResponsiveContainer>
-            </Tilt>
+            </div>
           </motion.div>
 
           <div className="team-grid" style={{ marginTop: '0' }}>
@@ -258,7 +253,7 @@ function App() {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1, duration: 0.4 }}
             >
-              <Tilt className="glass-card team-card" glareEnable={true} glareMaxOpacity={0.8} glareBorderRadius="16px" glareColor="#ffffff" glarePosition="all" scale={1.05} transitionSpeed={2000}>
+              <div className="glass-card team-card">
                 <div className="avatar-wrapper">
                   <User size={30} />
                 </div>
@@ -275,7 +270,7 @@ function App() {
                     </p>
                   )}
                 </div>
-              </Tilt>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -291,7 +286,7 @@ function App() {
       >
         <h2 className="section-title">{currentConfig.sectionBudget} <span className="text-gradient">{currentConfig.sectionBudgetHighlight}</span></h2>
         
-        <Tilt className="glass-card" glareEnable={true} glareMaxOpacity={0.5} glareBorderRadius="16px" glareColor="#ffffff" glarePosition="all" scale={1.01} transitionSpeed={2000}>
+        <div className="glass-card">
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', color: 'var(--text-primary)' }}>
               <thead>
@@ -319,7 +314,7 @@ function App() {
               </tfoot>
             </table>
           </div>
-        </Tilt>
+        </div>
       </motion.section>
 
       {/* Timeline Section */}
@@ -341,13 +336,10 @@ function App() {
               transition={{ delay: idx * 0.15, duration: 0.5, type: 'spring' }}
             >
               <div className="timeline-dot"></div>
-              <Tilt 
-                className="glass-card timeline-content"
-                glareEnable={true} glareMaxOpacity={0.8} glareBorderRadius="16px" glareColor="#ffffff" glarePosition="all" scale={1.03} transitionSpeed={2000}
-              >
+              <div className="glass-card timeline-content">
                 <h3 className="timeline-title">{step.title}</h3>
                 <p className="timeline-desc">{step.desc}</p>
-              </Tilt>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -372,13 +364,13 @@ function App() {
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.15, duration: 0.5 }}
               >
-                <Tilt className="glass-card info-item" glareEnable={true} glareMaxOpacity={0.8} glareBorderRadius="16px" glareColor="#ffffff" glarePosition="all" scale={1.05} transitionSpeed={2000}>
+                <div className="glass-card info-item">
                   {locationIcons[idx]}
                   <div className="info-text">
                     <h4>{item.title}</h4>
                     <p>{item.desc}</p>
                   </div>
-                </Tilt>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -389,7 +381,7 @@ function App() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <Tilt className="glass-card map-container" glareEnable={true} glareMaxOpacity={0.8} glareBorderRadius="16px" glareColor="#ffffff" glarePosition="all" scale={1.02} transitionSpeed={2000}>
+            <div className="glass-card map-container">
               <iframe 
                 src="https://maps.google.com/maps?q=Ch%E1%BB%A3%20Thu%E1%BA%ADn%20%C4%90%E1%BA%A1o,%20B%E1%BA%BFn%20L%E1%BB%A9c&t=&z=15&ie=UTF8&iwloc=&output=embed" 
                 allowFullScreen="" 
@@ -397,7 +389,7 @@ function App() {
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Chợ Thuận Đạo Map"
               ></iframe>
-            </Tilt>
+            </div>
           </motion.div>
         </div>
       </motion.section>
