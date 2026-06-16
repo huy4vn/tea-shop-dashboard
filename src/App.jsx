@@ -9,7 +9,7 @@ import './index.css';
 import './App.css';
 
 
-const Mascot = ({ onCatch }) => {
+const Mascot = ({ onCatch, onShow, onHide }) => {
   const controls = useAnimation();
   const [emoji, setEmoji] = useState('🐆');
   const xPos = React.useRef(window.innerWidth);
@@ -31,6 +31,8 @@ const Mascot = ({ onCatch }) => {
       }
       
       const action = actions[Math.floor(Math.random() * actions.length)];
+      
+      if (onShow) onShow();
       
       try {
         switch(action) {
@@ -103,6 +105,8 @@ const Mascot = ({ onCatch }) => {
       } catch (err) {
         // animation cancelled
       }
+      
+      if (onHide) onHide();
       
       timeoutId = setTimeout(runRandomAction, Math.random() * 200 + 100);
     };
@@ -199,14 +203,32 @@ function App() {
   }, [isDarkMode]);
 
   useEffect(() => {
-    if (!audioRef.current) return;
     if (isFunMode) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play().catch(e => console.log('Audio error:', e));
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0;
+        audioRef.current.play().catch(e => console.log('Audio error:', e));
+      }
+      playKaching();
     } else {
-      audioRef.current.pause();
+      if (audioRef.current) audioRef.current.pause();
+      if (catchMeAudioRef.current) catchMeAudioRef.current.pause();
     }
   }, [isFunMode]);
+  
+  const handleMascotShow = () => {
+    if (audioRef.current) audioRef.current.pause();
+    if (catchMeAudioRef.current) {
+      catchMeAudioRef.current.currentTime = 0;
+      catchMeAudioRef.current.play().catch(e => console.log('Audio error:', e));
+    }
+  };
+
+  const handleMascotHide = () => {
+    if (catchMeAudioRef.current) catchMeAudioRef.current.pause();
+    if (audioRef.current && isFunMode) {
+      audioRef.current.play().catch(e => console.log('Audio error:', e));
+    }
+  };
 
   useEffect(() => {
     const favicon = document.querySelector('link[rel="icon"]');
@@ -608,18 +630,11 @@ function App() {
       )}
 
       {/* Mascot */}
-      {isFunMode && <Mascot onCatch={() => {
-        setScore(s => s + 1);
-        if (catchMeAudioRef.current) {
-          catchMeAudioRef.current.currentTime = 0;
-          catchMeAudioRef.current.play().catch(e => console.log('Catch audio error:', e));
-          setTimeout(() => {
-            if (catchMeAudioRef.current) {
-              catchMeAudioRef.current.pause();
-            }
-          }, 5000);
-        }
-      }} />}
+      {isFunMode && <Mascot 
+        onShow={handleMascotShow}
+        onHide={handleMascotHide}
+        onCatch={() => setScore(s => s + 1)} 
+      />}
     </div>
   );
 }
