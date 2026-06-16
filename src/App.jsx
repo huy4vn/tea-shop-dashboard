@@ -1,12 +1,166 @@
 import React, { useState, useEffect } from 'react';
 import { Users, Clock, MapPin, Store, Building2, ChevronRight, User, Sun, Moon, Smile, Briefcase } from 'lucide-react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
 import { configs } from './data.js';
 import './index.css';
 import './App.css';
+
+
+const Mascot = () => {
+  const controls = useAnimation();
+  const [emoji, setEmoji] = useState('🐆');
+  const xPos = React.useRef(window.innerWidth);
+
+  React.useEffect(() => {
+    let timeoutId;
+    
+    const runRandomAction = async () => {
+      const actions = [
+        'walk_left_to_right', 
+        'walk_right_to_left', 
+        'fall_from_top_and_walk', 
+        'crawl_from_bottom_vertical',
+        'peek', 
+        'sleep', 
+        'jump',
+        'idle'
+      ];
+      const action = actions[Math.floor(Math.random() * actions.length)];
+      
+      try {
+        switch(action) {
+          case 'walk_left_to_right':
+            setEmoji('🐆');
+            xPos.current = -100;
+            await controls.start({
+              x: window.innerWidth + 100,
+              y: [0, -20, 0, -20, 0, -20, 0, -20, 0],
+              scaleX: -1, // facing right
+              transition: { duration: 6, ease: 'linear' }
+            });
+            xPos.current = window.innerWidth + 100;
+            break;
+
+          case 'walk_right_to_left':
+            setEmoji('🐆');
+            xPos.current = window.innerWidth + 100;
+            await controls.start({
+              x: -100,
+              y: [0, -20, 0, -20, 0, -20, 0, -20, 0],
+              scaleX: 1, // facing left
+              transition: { duration: 6, ease: 'linear' }
+            });
+            xPos.current = -100;
+            break;
+
+          case 'fall_from_top_and_walk':
+            setEmoji('🙀');
+            // Random start position
+            const startX = Math.random() * (window.innerWidth - 200) + 100;
+            xPos.current = startX;
+            await controls.start({
+              x: startX,
+              y: [-window.innerHeight, 0],
+              scaleX: 1,
+              transition: { duration: 1.5, ease: 'easeIn' }
+            });
+            
+            // Wait a sec then walk
+            setEmoji('🐆');
+            const walkRight = Math.random() > 0.5;
+            const endX = walkRight ? window.innerWidth + 100 : -100;
+            await controls.start({
+              x: endX,
+              y: [0, -20, 0, -20, 0],
+              scaleX: walkRight ? -1 : 1,
+              transition: { duration: 4, ease: 'linear' }
+            });
+            xPos.current = endX;
+            break;
+
+          case 'crawl_from_bottom_vertical':
+            setEmoji('😼');
+            const crawlX = Math.random() * (window.innerWidth - 200) + 100;
+            xPos.current = crawlX;
+            // Pop up and crawl vertically up then down
+            await controls.start({
+              x: crawlX,
+              y: [200, 0, -300, -300, 200],
+              scaleX: 1,
+              rotate: [-90, -90, -90, 90, 90], // looks like crawling up then down
+              transition: { duration: 6, times: [0, 0.2, 0.5, 0.6, 1], ease: 'linear' }
+            });
+            await controls.set({ rotate: 0, y: 200 }); // reset
+            break;
+
+          case 'peek':
+            setEmoji(Math.random() > 0.5 ? '👀' : '😼');
+            await controls.start({
+              x: xPos.current,
+              y: [200, -10, 0, 0, 200],
+              scaleX: Math.random() > 0.5 ? 1 : -1,
+              transition: { duration: 3, times: [0, 0.2, 0.3, 0.8, 1] }
+            });
+            await controls.set({ y: 0 });
+            break;
+
+          case 'sleep':
+            setEmoji('💤');
+            await controls.start({
+              y: 0,
+              scaleX: 1,
+              transition: { duration: 4 }
+            });
+            break;
+
+          case 'jump':
+            setEmoji('🐆');
+            await controls.start({
+              y: [0, -200, 0],
+              transition: { duration: 1, ease: 'easeInOut' }
+            });
+            break;
+
+          case 'idle':
+          default:
+            setEmoji('🐆');
+            await controls.start({
+              y: 0,
+              transition: { duration: 2 }
+            });
+            break;
+        }
+      } catch (err) {
+        // animation cancelled
+      }
+      
+      timeoutId = setTimeout(runRandomAction, Math.random() * 2000 + 500);
+    };
+
+    controls.set({ x: xPos.current, y: 200, scaleX: 1, rotate: 0 });
+    runRandomAction();
+
+    return () => clearTimeout(timeoutId);
+  }, [controls]);
+
+  return (
+    <motion.div
+      animate={controls}
+      style={{
+        position: 'fixed',
+        bottom: '-10px',
+        left: 0,
+        zIndex: 9999,
+        pointerEvents: 'none'
+      }}
+    >
+      <div style={{ fontSize: '100px', filter: 'drop-shadow(0 10px 10px rgba(0,0,0,0.5))' }}>{emoji}</div>
+    </motion.div>
+  );
+};
 
 function App() {
   const { width, height } = useWindowSize();
@@ -438,30 +592,7 @@ function App() {
       </footer>
 
       {/* Mascot */}
-      {isFunMode && (
-        <motion.div
-          initial={{ x: '100vw', y: 0, scaleX: 1 }}
-          animate={{ 
-             x: ['100vw', '-150px', '-150px', '100vw', '100vw'],
-             y: [0, -20, 0, -20, 0, -20, 0, -20, 0, -20, 0],
-             scaleX: [1, 1, -1, -1, 1] 
-          }}
-          transition={{ 
-             x: { repeat: Infinity, duration: 15, times: [0, 0.45, 0.5, 0.95, 1], ease: 'linear' },
-             scaleX: { repeat: Infinity, duration: 15, times: [0, 0.45, 0.5, 0.95, 1], ease: 'linear' },
-             y: { repeat: Infinity, duration: 1.5, ease: 'easeInOut' }
-          }}
-          style={{
-            position: 'fixed',
-            bottom: '-10px',
-            right: 0,
-            zIndex: 9999,
-            pointerEvents: 'none'
-          }}
-        >
-          <div style={{ fontSize: '100px', filter: 'drop-shadow(0 10px 10px rgba(0,0,0,0.5))' }}>🐆</div>
-        </motion.div>
-      )}
+      {isFunMode && <Mascot />}
     </div>
   );
 }
