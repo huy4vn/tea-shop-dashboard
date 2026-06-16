@@ -440,13 +440,21 @@ function App() {
       {/* Mascot */}
       {isFunMode && (
         <motion.div
-          initial={{ y: 200 }}
-          animate={{ y: [200, 0, 0, 200] }}
-          transition={{ repeat: Infinity, duration: 8, times: [0, 0.1, 0.9, 1] }}
+          initial={{ x: '100vw', y: 0, scaleX: 1 }}
+          animate={{ 
+             x: ['100vw', '-150px', '-150px', '100vw', '100vw'],
+             y: [0, -20, 0, -20, 0, -20, 0, -20, 0, -20, 0],
+             scaleX: [1, 1, -1, -1, 1] 
+          }}
+          transition={{ 
+             x: { repeat: Infinity, duration: 15, times: [0, 0.45, 0.5, 0.95, 1], ease: 'linear' },
+             scaleX: { repeat: Infinity, duration: 15, times: [0, 0.45, 0.5, 0.95, 1], ease: 'linear' },
+             y: { repeat: Infinity, duration: 1.5, ease: 'easeInOut' }
+          }}
           style={{
             position: 'fixed',
-            bottom: 0,
-            right: '20px',
+            bottom: '-10px',
+            right: 0,
             zIndex: 9999,
             pointerEvents: 'none'
           }}
