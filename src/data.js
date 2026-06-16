@@ -130,11 +130,11 @@ export const configs = {
       }
     ],
     team: [
-      { id: 'tran', name: 'Chủ chăn bầy báo', role: 'Chủ trại báo', investment: 250 },
-      { id: 'phuc_huy', name: 'Công Chúa và tùy tùng', role: 'Gia đình nhà đầu tư cho bầy báo', investment: 100 },
-      { id: 'sa', name: 'Phạm Quang (Sa)', role: 'Em của Mi', investment: 100 },
-      { id: 'mi', name: 'Báo đầu đàn', role: 'Quản lý báo con và đầu tư cho bầy báo', investment: 50 },
-      { id: 'phuong', name: 'Chị Phương', role: 'Quản lý 2', investment: 0 },
+      { id: 'tran', name: 'Chủ chăn bầy báo', role: 'Chủ trại báo', investment: 250, funQuote: 'Đang tiền đình vì đám nhân viên báo.' },
+      { id: 'phuc_huy', name: 'Công Chúa và tùy tùng', role: 'Gia đình nhà đầu tư cho bầy báo', investment: 100, funQuote: 'Các nhà tư bản thầm lặng.' },
+      { id: 'sa', name: 'Phạm Quang (Sa)', role: 'Em của Mi', investment: 100, funQuote: 'Sao chổi chiếu mệnh, chạy KPI sml.' },
+      { id: 'mi', name: 'Báo đầu đàn', role: 'Quản lý báo con và đầu tư cho bầy báo', investment: 50, funQuote: 'Sắp bị KPI đè bẹp.' },
+      { id: 'phuong', name: 'Chị Phương', role: 'Quản lý 2', investment: 0, funQuote: 'Góp công không góp của, tiếng dế kêu (cricket).' },
     ],
     sectionBudget: 'Bảng Kê Hóa Kiếp',
     sectionBudgetHighlight: 'Tiền Tệ',

@@ -15,12 +15,21 @@ function App() {
   const [isFunMode, setIsFunMode] = useState(false);
   const toggleFunMode = () => setIsFunMode(!isFunMode);
 
+  
   const audioRef = React.useRef(null);
+  const kachingRef = React.useRef(null);
+  const cricketRef = React.useRef(null);
   useEffect(() => {
     audioRef.current = new Audio('/fun_audio.mp3');
     audioRef.current.loop = true;
     audioRef.current.volume = 0.5;
+    kachingRef.current = new Audio('https://www.myinstants.com/media/sounds/cash-register-kaching.mp3');
+    cricketRef.current = new Audio('https://www.myinstants.com/media/sounds/crickets.mp3');
   }, []);
+  
+  const playKaching = () => { if (isFunMode && kachingRef.current) { kachingRef.current.currentTime = 0; kachingRef.current.play(); } };
+  const playCricket = () => { if (isFunMode && cricketRef.current) { cricketRef.current.currentTime = 0; cricketRef.current.play(); } };
+
 
   useEffect(() => {
     if (isDarkMode) {
@@ -103,7 +112,14 @@ function App() {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       const percent = (data.value / totalInvestment * 100).toFixed(1);
-      return (
+      
+  const drawMoney = (ctx) => {
+    ctx.font = '24px serif';
+    ctx.fillText('💸', 0, 0);
+  };
+
+  return (
+
         <div style={{ padding: '1rem', borderRadius: '12px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', backdropFilter: 'var(--glass-blur)', color: 'var(--text-primary)', boxShadow: 'var(--glass-shadow-default)' }}>
           <p style={{ fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.25rem', color: 'var(--primary)' }}>{data.name}</p>
           <p style={{ fontSize: '0.9rem', marginBottom: '0.25rem' }}>{data.role}</p>
@@ -177,14 +193,7 @@ function App() {
       {/* Spectacular Confetti Effect */}
       {isFunMode && (
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: 9999 }}>
-          <Confetti
-            width={width}
-            height={height}
-            drawShape={drawKite}
-            colors={['#f472b6', '#3b82f6', '#facc15', '#10b981', '#ec4899', '#ef4444']}
-            numberOfPieces={80}
-            gravity={0.08}
-          />
+          {isFunMode && <Confetti width={width} height={height} numberOfPieces={80} gravity={0.15} drawShape={drawMoney} recycle={true} />}
         </div>
       )}
 
@@ -253,7 +262,7 @@ function App() {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1, duration: 0.4 }}
             >
-              <div className="glass-card team-card">
+              <div className="glass-card team-card" onClick={() => member.investment === 0 ? playCricket() : playKaching()} title={isFunMode ? member.funQuote : ''} style={{ cursor: isFunMode ? 'pointer' : 'default' }}>
                 <div className="avatar-wrapper">
                   <User size={30} />
                 </div>
