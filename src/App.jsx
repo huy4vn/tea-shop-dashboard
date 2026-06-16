@@ -271,7 +271,10 @@ function App() {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1, duration: 0.4 }}
             >
-              <div className="glass-card team-card" onClick={() => member.investment === 0 ? playCricket() : playKaching()} title={isFunMode ? member.funQuote : ''} style={{ cursor: isFunMode ? 'pointer' : 'default' }}>
+              <div className="glass-card team-card" onClick={() => member.investment === 0 ? playCricket() : playKaching()} style={{ cursor: isFunMode ? 'pointer' : 'default', position: 'relative' }}>
+                {isFunMode && member.funQuote && (
+                  <span className="custom-tooltip">{member.funQuote}</span>
+                )}
                 <div className="avatar-wrapper">
                   <User size={30} />
                 </div>
@@ -433,6 +436,24 @@ function App() {
       <footer style={{ textAlign: 'center', padding: '2rem', color: 'var(--text-secondary)' }}>
         <p>{currentConfig.footerText}</p>
       </footer>
+
+      {/* Mascot */}
+      {isFunMode && (
+        <motion.div
+          initial={{ y: 200 }}
+          animate={{ y: [200, 0, 0, 200] }}
+          transition={{ repeat: Infinity, duration: 8, times: [0, 0.1, 0.9, 1] }}
+          style={{
+            position: 'fixed',
+            bottom: 0,
+            right: '20px',
+            zIndex: 9999,
+            pointerEvents: 'none'
+          }}
+        >
+          <div style={{ fontSize: '100px', filter: 'drop-shadow(0 10px 10px rgba(0,0,0,0.5))' }}>🐆</div>
+        </motion.div>
+      )}
     </div>
   );
 }
