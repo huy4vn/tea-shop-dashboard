@@ -22,8 +22,7 @@ const Mascot = ({ onCatch }) => {
         'walk_left_to_right', 
         'walk_right_to_left', 
         'fall_from_top_and_walk', 
-        'crawl_from_bottom_vertical',
-        'jump'
+        'crawl_from_bottom_vertical'
       ];
       
       // If mascot is off-screen, force it to do an action that brings it back
@@ -42,7 +41,7 @@ const Mascot = ({ onCatch }) => {
               x: window.innerWidth + 200,
               y: [0, -20, 0, -20, 0, -20, 0, -20, 0],
               scaleX: -1, // facing right
-              transition: { duration: 3, ease: 'linear' }
+              transition: { duration: 1.2, ease: 'linear' }
             });
             xPos.current = window.innerWidth + 200;
             break;
@@ -54,7 +53,7 @@ const Mascot = ({ onCatch }) => {
               x: -200,
               y: [0, -20, 0, -20, 0, -20, 0, -20, 0],
               scaleX: 1, // facing left
-              transition: { duration: 3, ease: 'linear' }
+              transition: { duration: 1.2, ease: 'linear' }
             });
             xPos.current = -200;
             break;
@@ -68,7 +67,7 @@ const Mascot = ({ onCatch }) => {
               x: startX,
               y: [-window.innerHeight, 0],
               scaleX: 1,
-              transition: { duration: 1.5, ease: 'easeIn' }
+              transition: { duration: 0.5, ease: 'easeIn' }
             });
             
             // Wait a sec then walk
@@ -79,7 +78,7 @@ const Mascot = ({ onCatch }) => {
               x: endX,
               y: [0, -20, 0, -20, 0],
               scaleX: walkRight ? -1 : 1,
-              transition: { duration: 4, ease: 'linear' }
+              transition: { duration: 1.5, ease: 'linear' }
             });
             xPos.current = endX;
             break;
@@ -95,25 +94,17 @@ const Mascot = ({ onCatch }) => {
               y: [200, 0, -300, -300, 200],
               scaleX: 1,
               rotate: [-90, -90, -90, 90, 90], // looks like crawling up then down
-              transition: { duration: 3, times: [0, 0.2, 0.5, 0.6, 1], ease: 'linear' }
+              transition: { duration: 1.5, times: [0, 0.2, 0.5, 0.6, 1], ease: 'linear' }
             });
             await controls.set({ rotate: 0, y: 200 }); // reset
             break;
           }
-
-          case 'jump':
-            setEmoji('🐆');
-            await controls.start({
-              y: [0, -250, 0],
-              transition: { duration: 0.8, ease: 'easeInOut' }
-            });
-            break;
         }
       } catch (err) {
         // animation cancelled
       }
       
-      timeoutId = setTimeout(runRandomAction, Math.random() * 500);
+      timeoutId = setTimeout(runRandomAction, Math.random() * 200 + 100);
     };
 
     controls.set({ x: xPos.current, y: 200, scaleX: 1, rotate: 0 });
