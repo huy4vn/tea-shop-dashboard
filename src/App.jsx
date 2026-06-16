@@ -216,7 +216,7 @@ function App() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           {/* Chart Card */}
           <motion.div>
-            <div className="glass-card chart-card">
+            <div className="glass-card chart-card" style={{ height: '400px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <p style={{ textAlign: 'center', marginBottom: '1rem', fontWeight: 'bold', color: 'var(--text-primary)' }}>{currentConfig.chartTitle}</p>
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
