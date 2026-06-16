@@ -595,7 +595,7 @@ function App() {
           style={{
             position: 'fixed',
             top: '20px',
-            right: '20px',
+            left: '20px',
             background: 'var(--glass-bg)',
             backdropFilter: 'blur(10px)',
             padding: '10px 20px',
