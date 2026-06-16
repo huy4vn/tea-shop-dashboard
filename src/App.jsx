@@ -506,6 +506,49 @@ function App() {
         </div>
       </motion.section>
 
+      {/* Cash Flow Section */}
+      <motion.section 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6 }}
+      >
+        <h2 className="section-title">Bảng Theo Dõi <span className="text-gradient">Thu Chi</span></h2>
+        
+        <div className="glass-card">
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', color: 'var(--text-primary)' }}>
+              <thead>
+                <tr style={{ borderBottom: '2px solid var(--glass-border)' }}>
+                  <th style={{ padding: '1rem', color: 'var(--primary)', fontWeight: 'bold' }}>Ngày</th>
+                  <th style={{ padding: '1rem', color: 'var(--primary)', fontWeight: 'bold' }}>Nội Dung</th>
+                  <th style={{ padding: '1rem', color: '#10b981', fontWeight: 'bold', textAlign: 'right' }}>Thu (VNĐ)</th>
+                  <th style={{ padding: '1rem', color: '#ef4444', fontWeight: 'bold', textAlign: 'right' }}>Chi (VNĐ)</th>
+                  <th style={{ padding: '1rem', color: 'var(--secondary)', fontWeight: 'bold', textAlign: 'right' }}>Còn Lại (VNĐ)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentConfig.cashFlow?.map((item, idx) => (
+                  <tr key={idx} style={{ borderBottom: '1px solid var(--glass-border)' }}>
+                    <td style={{ padding: '1rem', whiteSpace: 'nowrap' }}>{item.date}</td>
+                    <td style={{ padding: '1rem' }}>{item.content}</td>
+                    <td style={{ padding: '1rem', textAlign: 'right', fontWeight: '500', color: '#10b981' }}>
+                      {item.income ? item.income.toLocaleString('vi-VN') : ''}
+                    </td>
+                    <td style={{ padding: '1rem', textAlign: 'right', fontWeight: '500', color: '#ef4444' }}>
+                      {item.expense ? item.expense.toLocaleString('vi-VN') : ''}
+                    </td>
+                    <td style={{ padding: '1rem', textAlign: 'right', fontWeight: 'bold', color: 'var(--secondary)' }}>
+                      {item.balance ? item.balance.toLocaleString('vi-VN') : ''}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </motion.section>
+
       {/* Timeline Section */}
       <motion.section 
         initial={{ opacity: 0, y: 50 }}
