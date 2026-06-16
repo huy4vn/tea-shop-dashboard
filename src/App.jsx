@@ -282,6 +282,46 @@ function App() {
         </div>
       </motion.section>
 
+      {/* Budget Section */}
+      <motion.section 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6 }}
+      >
+        <h2 className="section-title">{currentConfig.sectionBudget} <span className="text-gradient">{currentConfig.sectionBudgetHighlight}</span></h2>
+        
+        <Tilt className="glass-card" glareEnable={true} glareMaxOpacity={0.5} glareBorderRadius="16px" glareColor="#ffffff" glarePosition="all" scale={1.01} transitionSpeed={2000}>
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', color: 'var(--text-primary)' }}>
+              <thead>
+                <tr style={{ borderBottom: '2px solid var(--glass-border)' }}>
+                  <th style={{ padding: '1rem', color: 'var(--primary)', fontWeight: 'bold' }}>Hạng Mục</th>
+                  <th style={{ padding: '1rem', color: 'var(--primary)', fontWeight: 'bold', textAlign: 'right' }}>Số Tiền (VNĐ)</th>
+                  <th style={{ padding: '1rem', color: 'var(--primary)', fontWeight: 'bold' }}>Ghi Chú</th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentConfig.budgetItems.map((item, idx) => (
+                  <tr key={idx} style={{ borderBottom: '1px solid var(--glass-border)' }}>
+                    <td style={{ padding: '1rem' }}>{item.name}</td>
+                    <td style={{ padding: '1rem', textAlign: 'right', fontWeight: '500' }}>{item.amount.toLocaleString('vi-VN')}</td>
+                    <td style={{ padding: '1rem', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>{item.note}</td>
+                  </tr>
+                ))}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th style={{ padding: '1rem', fontSize: '1.2rem', color: 'var(--primary)', fontWeight: 'bold' }}>Tổng Cộng</th>
+                  <th style={{ padding: '1rem', fontSize: '1.2rem', color: 'var(--secondary)', fontWeight: 'bold', textAlign: 'right' }}>{currentConfig.budgetTotal.toLocaleString('vi-VN')}</th>
+                  <th></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </Tilt>
+      </motion.section>
+
       {/* Timeline Section */}
       <motion.section 
         initial={{ opacity: 0, y: 50 }}
