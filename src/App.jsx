@@ -23,12 +23,12 @@ function App() {
     audioRef.current = new Audio('/fun_audio.mp3');
     audioRef.current.loop = true;
     audioRef.current.volume = 0.5;
-    kachingRef.current = new Audio('https://www.myinstants.com/media/sounds/cash-register-kaching.mp3');
-    cricketRef.current = new Audio('https://www.myinstants.com/media/sounds/crickets.mp3');
+    kachingRef.current = new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg');
+    cricketRef.current = new Audio('https://actions.google.com/sounds/v1/animals/cricket_chirp.ogg');
   }, []);
   
-  const playKaching = () => { if (isFunMode && kachingRef.current) { kachingRef.current.currentTime = 0; kachingRef.current.play(); } };
-  const playCricket = () => { if (isFunMode && cricketRef.current) { cricketRef.current.currentTime = 0; cricketRef.current.play(); } };
+  const playKaching = () => { if (isFunMode && kachingRef.current) { kachingRef.current.currentTime = 0; kachingRef.current.play().catch(e => console.log(e)); } };
+  const playCricket = () => { if (isFunMode && cricketRef.current) { cricketRef.current.currentTime = 0; cricketRef.current.play().catch(e => console.log(e)); } };
 
 
   useEffect(() => {
@@ -193,7 +193,16 @@ function App() {
       {/* Spectacular Confetti Effect */}
       {isFunMode && (
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: 9999 }}>
-          {isFunMode && <Confetti width={width} height={height} numberOfPieces={25} gravity={0.3} drawShape={drawMoney} recycle={false} />}
+          {isFunMode && (
+            <Confetti
+              width={width}
+              height={height}
+              drawShape={drawKite}
+              colors={['#f472b6', '#3b82f6', '#facc15', '#10b981', '#ec4899', '#ef4444']}
+              numberOfPieces={60}
+              gravity={0.08}
+            />
+          )}
         </div>
       )}
 
