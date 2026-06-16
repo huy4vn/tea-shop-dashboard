@@ -200,10 +200,10 @@ function App() {
 
   useEffect(() => {
     if (isFunMode) {
-      if (audioRef.current) {
-        audioRef.current.currentTime = 0;
-        audioRef.current.play().catch(e => console.log('Audio error:', e));
-      }
+      // if (audioRef.current) {
+      //   audioRef.current.currentTime = 0;
+      //   audioRef.current.play().catch(e => console.log('Audio error:', e));
+      // }
       if (catchMeAudioRef.current) {
         catchMeAudioRef.current.currentTime = 0;
         catchMeAudioRef.current.loop = true;
