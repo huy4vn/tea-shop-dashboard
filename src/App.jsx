@@ -13,6 +13,11 @@ const Mascot = () => {
   const controls = useAnimation();
   const [emoji, setEmoji] = useState('🐆');
   const xPos = React.useRef(window.innerWidth);
+  const catchMeAudioRef = React.useRef(null);
+
+  React.useEffect(() => {
+    catchMeAudioRef.current = new Audio('/do_bat_duoc.mp3');
+  }, []);
 
   React.useEffect(() => {
     let timeoutId;
@@ -146,6 +151,18 @@ const Mascot = () => {
     return () => clearTimeout(timeoutId);
   }, [controls]);
 
+  const handleMascotClick = () => {
+    if (catchMeAudioRef.current) {
+      catchMeAudioRef.current.currentTime = 0;
+      catchMeAudioRef.current.play().catch(e => console.log(e));
+      setTimeout(() => {
+        if (catchMeAudioRef.current) {
+          catchMeAudioRef.current.pause();
+        }
+      }, 5000);
+    }
+  };
+
   return (
     <motion.div
       animate={controls}
@@ -157,7 +174,12 @@ const Mascot = () => {
         pointerEvents: 'none'
       }}
     >
-      <div style={{ fontSize: '100px', filter: 'drop-shadow(0 10px 10px rgba(0,0,0,0.5))' }}>{emoji}</div>
+      <div 
+        onClick={handleMascotClick}
+        style={{ fontSize: '100px', filter: 'drop-shadow(0 10px 10px rgba(0,0,0,0.5))', pointerEvents: 'auto', cursor: 'pointer' }}
+      >
+        {emoji}
+      </div>
     </motion.div>
   );
 };
