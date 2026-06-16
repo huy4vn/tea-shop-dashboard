@@ -13,11 +13,6 @@ const Mascot = ({ onCatch }) => {
   const controls = useAnimation();
   const [emoji, setEmoji] = useState('🐆');
   const xPos = React.useRef(window.innerWidth);
-  const catchMeAudioRef = React.useRef(null);
-
-  React.useEffect(() => {
-    catchMeAudioRef.current = new Audio('/do_bat_duoc.mp3');
-  }, []);
 
   React.useEffect(() => {
     let timeoutId;
@@ -28,10 +23,7 @@ const Mascot = ({ onCatch }) => {
         'walk_right_to_left', 
         'fall_from_top_and_walk', 
         'crawl_from_bottom_vertical',
-        'peek', 
-        'sleep', 
-        'jump',
-        'idle'
+        'jump'
       ];
       
       // If mascot is off-screen, force it to do an action that brings it back
@@ -50,7 +42,7 @@ const Mascot = ({ onCatch }) => {
               x: window.innerWidth + 200,
               y: [0, -20, 0, -20, 0, -20, 0, -20, 0],
               scaleX: -1, // facing right
-              transition: { duration: 6, ease: 'linear' }
+              transition: { duration: 3, ease: 'linear' }
             });
             xPos.current = window.innerWidth + 200;
             break;
@@ -62,12 +54,12 @@ const Mascot = ({ onCatch }) => {
               x: -200,
               y: [0, -20, 0, -20, 0, -20, 0, -20, 0],
               scaleX: 1, // facing left
-              transition: { duration: 6, ease: 'linear' }
+              transition: { duration: 3, ease: 'linear' }
             });
             xPos.current = -200;
             break;
 
-          case 'fall_from_top_and_walk':
+          case 'fall_from_top_and_walk': {
             setEmoji('🙀');
             // Random start position
             const startX = Math.random() * (window.innerWidth - 200) + 100;
@@ -91,8 +83,9 @@ const Mascot = ({ onCatch }) => {
             });
             xPos.current = endX;
             break;
+          }
 
-          case 'crawl_from_bottom_vertical':
+          case 'crawl_from_bottom_vertical': {
             setEmoji('😼');
             const crawlX = Math.random() * (window.innerWidth - 200) + 100;
             xPos.current = crawlX;
@@ -102,45 +95,17 @@ const Mascot = ({ onCatch }) => {
               y: [200, 0, -300, -300, 200],
               scaleX: 1,
               rotate: [-90, -90, -90, 90, 90], // looks like crawling up then down
-              transition: { duration: 6, times: [0, 0.2, 0.5, 0.6, 1], ease: 'linear' }
+              transition: { duration: 3, times: [0, 0.2, 0.5, 0.6, 1], ease: 'linear' }
             });
             await controls.set({ rotate: 0, y: 200 }); // reset
             break;
-
-          case 'peek':
-            setEmoji(Math.random() > 0.5 ? '👀' : '😼');
-            await controls.start({
-              x: xPos.current,
-              y: [200, -10, 0, 0, 200],
-              scaleX: Math.random() > 0.5 ? 1 : -1,
-              transition: { duration: 3, times: [0, 0.2, 0.3, 0.8, 1] }
-            });
-            await controls.set({ y: 0 });
-            break;
-
-          case 'sleep':
-            setEmoji('💤');
-            await controls.start({
-              y: 0,
-              scaleX: 1,
-              transition: { duration: 4 }
-            });
-            break;
+          }
 
           case 'jump':
             setEmoji('🐆');
             await controls.start({
-              y: [0, -200, 0],
-              transition: { duration: 1, ease: 'easeInOut' }
-            });
-            break;
-
-          case 'idle':
-          default:
-            setEmoji('🐆');
-            await controls.start({
-              y: 0,
-              transition: { duration: 2 }
+              y: [0, -250, 0],
+              transition: { duration: 0.8, ease: 'easeInOut' }
             });
             break;
         }
@@ -148,7 +113,7 @@ const Mascot = ({ onCatch }) => {
         // animation cancelled
       }
       
-      timeoutId = setTimeout(runRandomAction, Math.random() * 2000 + 500);
+      timeoutId = setTimeout(runRandomAction, Math.random() * 500);
     };
 
     controls.set({ x: xPos.current, y: 200, scaleX: 1, rotate: 0 });
@@ -157,17 +122,10 @@ const Mascot = ({ onCatch }) => {
     return () => clearTimeout(timeoutId);
   }, [controls]);
 
-  const handleMascotClick = () => {
+  const handleMascotClick = (e) => {
+    e.preventDefault(); // prevent default behavior
+    e.stopPropagation();
     if (onCatch) onCatch();
-    if (catchMeAudioRef.current) {
-      catchMeAudioRef.current.currentTime = 0;
-      catchMeAudioRef.current.play().catch(e => console.log(e));
-      setTimeout(() => {
-        if (catchMeAudioRef.current) {
-          catchMeAudioRef.current.pause();
-        }
-      }, 5000);
-    }
   };
 
   return (
@@ -182,7 +140,8 @@ const Mascot = ({ onCatch }) => {
       }}
     >
       <div 
-        onPointerDown={handleMascotClick}
+        onMouseDown={handleMascotClick}
+        onTouchStart={handleMascotClick}
         style={{ fontSize: '100px', filter: 'drop-shadow(0 10px 10px rgba(0,0,0,0.5))', pointerEvents: 'auto', cursor: 'pointer', touchAction: 'none' }}
       >
         {emoji}
@@ -191,13 +150,31 @@ const Mascot = ({ onCatch }) => {
   );
 };
 
+const CustomTooltip = ({ active, payload, totalInvestment }) => {
+  if (active && payload && payload.length) {
+    const data = payload[0].payload;
+    const percent = (data.value / totalInvestment * 100).toFixed(1);
+    
+    return (
+      <div style={{ padding: '1rem', borderRadius: '12px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', backdropFilter: 'var(--glass-blur)', color: 'var(--text-primary)', boxShadow: 'var(--glass-shadow-default)' }}>
+        <p style={{ fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.25rem', color: 'var(--primary)' }}>{data.name}</p>
+        <p style={{ fontSize: '0.9rem', marginBottom: '0.25rem' }}>{data.role}</p>
+        <p style={{ fontSize: '0.9rem', fontWeight: 'bold' }}>Cổ phần: {percent}%</p>
+      </div>
+    );
+  }
+  return null;
+};
+
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isFunMode, setIsFunMode] = useState(false);
+  const toggleFunMode = () => setIsFunMode(!isFunMode);
   const { width, height } = useWindowSize();
   const audioRef = React.useRef(null);
   const kachingRef = React.useRef(null);
   const cricketRef = React.useRef(null);
+  const catchMeAudioRef = React.useRef(null);
 
   // Score state
   const [score, setScore] = useState(() => {
@@ -215,6 +192,7 @@ function App() {
     audioRef.current.volume = 0.5;
     kachingRef.current = new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg');
     cricketRef.current = new Audio('https://actions.google.com/sounds/v1/animals/cricket_chirp.ogg');
+    catchMeAudioRef.current = new Audio('/do_bat_duoc.mp3');
   }, []);
   
   const playKaching = () => { if (isFunMode && kachingRef.current) { kachingRef.current.currentTime = 0; kachingRef.current.play().catch(e => console.log(e)); } };
@@ -297,23 +275,6 @@ function App() {
     }));
 
   const COLORS = ['#0056b3', '#ec4899', '#3b82f6', '#10b981', '#f59e0b'];
-
-  const CustomTooltip = ({ active, payload }) => {
-    if (active && payload && payload.length) {
-      const data = payload[0].payload;
-      const percent = (data.value / totalInvestment * 100).toFixed(1);
-      
-      return (
-
-        <div style={{ padding: '1rem', borderRadius: '12px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', backdropFilter: 'var(--glass-blur)', color: 'var(--text-primary)', boxShadow: 'var(--glass-shadow-default)' }}>
-          <p style={{ fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.25rem', color: 'var(--primary)' }}>{data.name}</p>
-          <p style={{ fontSize: '0.9rem', marginBottom: '0.25rem' }}>{data.role}</p>
-          <p style={{ fontSize: '0.9rem', fontWeight: 'bold' }}>Cổ phần: {percent}%</p>
-        </div>
-      );
-    }
-    return null;
-  };
 
   const stepIcons = [<MapPin size={24} />, <Store size={24} />, <Users size={24} />, <Clock size={24} />, <ChevronRight size={24} />];
   const locationIcons = [<MapPin className="info-icon" size={28} />, <Users className="info-icon" size={28} />, <Building2 className="info-icon" size={28} />];
@@ -445,7 +406,7 @@ function App() {
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} style={{ outline: 'none' }} />
                     ))}
                   </Pie>
-                  <Tooltip content={<CustomTooltip />} />
+                  <Tooltip content={<CustomTooltip totalInvestment={totalInvestment} />} />
                   <Legend verticalAlign="bottom" height={36} iconType="circle" wrapperStyle={{ paddingTop: '20px' }}/>
                 </PieChart>
               </ResponsiveContainer>
@@ -656,7 +617,18 @@ function App() {
       )}
 
       {/* Mascot */}
-      {isFunMode && <Mascot onCatch={() => setScore(s => s + 1)} />}
+      {isFunMode && <Mascot onCatch={() => {
+        setScore(s => s + 1);
+        if (catchMeAudioRef.current) {
+          catchMeAudioRef.current.currentTime = 0;
+          catchMeAudioRef.current.play().catch(e => console.log('Catch audio error:', e));
+          setTimeout(() => {
+            if (catchMeAudioRef.current) {
+              catchMeAudioRef.current.pause();
+            }
+          }, 5000);
+        }
+      }} />}
     </div>
   );
 }
