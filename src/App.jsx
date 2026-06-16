@@ -9,7 +9,7 @@ import './index.css';
 import './App.css';
 
 
-const Mascot = () => {
+const Mascot = ({ onCatch }) => {
   const controls = useAnimation();
   const [emoji, setEmoji] = useState('🐆');
   const xPos = React.useRef(window.innerWidth);
@@ -158,6 +158,7 @@ const Mascot = () => {
   }, [controls]);
 
   const handleMascotClick = () => {
+    if (onCatch) onCatch();
     if (catchMeAudioRef.current) {
       catchMeAudioRef.current.currentTime = 0;
       catchMeAudioRef.current.play().catch(e => console.log(e));
@@ -191,16 +192,23 @@ const Mascot = () => {
 };
 
 function App() {
-  const { width, height } = useWindowSize();
   const [isDarkMode, setIsDarkMode] = useState(false);
-
   const [isFunMode, setIsFunMode] = useState(false);
-  const toggleFunMode = () => setIsFunMode(!isFunMode);
-
-  
+  const { width, height } = useWindowSize();
   const audioRef = React.useRef(null);
   const kachingRef = React.useRef(null);
   const cricketRef = React.useRef(null);
+
+  // Score state
+  const [score, setScore] = useState(() => {
+    const saved = localStorage.getItem('mascot_score');
+    return saved ? parseInt(saved, 10) : 0;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('mascot_score', score.toString());
+  }, [score]);
+  
   useEffect(() => {
     audioRef.current = new Audio('/fun_audio.mp3');
     audioRef.current.loop = true;
@@ -619,8 +627,36 @@ function App() {
         <p>{currentConfig.footerText}</p>
       </footer>
 
+      {/* Scoreboard */}
+      {isFunMode && (
+        <motion.div 
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          style={{
+            position: 'fixed',
+            top: '20px',
+            right: '20px',
+            background: 'var(--glass-bg)',
+            backdropFilter: 'blur(10px)',
+            padding: '10px 20px',
+            borderRadius: '50px',
+            border: '2px solid var(--primary)',
+            color: 'var(--text-primary)',
+            fontWeight: 'bold',
+            fontSize: '1.2rem',
+            zIndex: 10000,
+            boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px'
+          }}
+        >
+          🎯 Bắt báo: <span style={{ color: 'var(--secondary)', fontSize: '1.5rem' }}>{score}</span>
+        </motion.div>
+      )}
+
       {/* Mascot */}
-      {isFunMode && <Mascot />}
+      {isFunMode && <Mascot onCatch={() => setScore(s => s + 1)} />}
     </div>
   );
 }
