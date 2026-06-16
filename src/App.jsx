@@ -193,7 +193,7 @@ function App() {
       {/* Spectacular Confetti Effect */}
       {isFunMode && (
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: 9999 }}>
-          {isFunMode && <Confetti width={width} height={height} numberOfPieces={80} gravity={0.15} drawShape={drawMoney} recycle={true} />}
+          {isFunMode && <Confetti width={width} height={height} numberOfPieces={25} gravity={0.3} drawShape={drawMoney} recycle={false} />}
         </div>
       )}
 
@@ -307,7 +307,7 @@ function App() {
               </thead>
               <tbody>
                 {currentConfig.budgetItems.map((item, idx) => (
-                  <tr key={idx} style={{ borderBottom: '1px solid var(--glass-border)' }}>
+                  <tr key={idx} style={{ borderBottom: '1px solid var(--glass-border)', cursor: isFunMode ? 'pointer' : 'default' }} onClick={playKaching} title={isFunMode ? "Bấm vào để rớt tiền" : ""}>
                     <td style={{ padding: '1rem' }}>{item.name}</td>
                     <td style={{ padding: '1rem', textAlign: 'right', fontWeight: '500' }}>{item.amount.toLocaleString('vi-VN')}</td>
                     <td style={{ padding: '1rem', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>{item.note}</td>
@@ -320,6 +320,24 @@ function App() {
                   <th style={{ padding: '1rem', fontSize: '1.2rem', color: 'var(--secondary)', fontWeight: 'bold', textAlign: 'right' }}>{currentConfig.budgetTotal.toLocaleString('vi-VN')}</th>
                   <th></th>
                 </tr>
+                {isFunMode && (
+                  <tr>
+                    <td colSpan="3" style={{ padding: '1rem' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <span style={{ fontSize: '24px' }}>🔥</span>
+                        <div style={{ flex: 1, background: 'rgba(239, 68, 68, 0.2)', height: '24px', borderRadius: '12px', overflow: 'hidden', position: 'relative' }}>
+                          <motion.div 
+                            initial={{ width: 0 }}
+                            whileInView={{ width: '100%' }}
+                            transition={{ duration: 2, ease: 'easeOut' }}
+                            style={{ background: 'linear-gradient(90deg, #f97316, #ef4444)', height: '100%', borderRadius: '12px' }}
+                          />
+                        </div>
+                        <span style={{ fontWeight: 'bold', color: '#ef4444' }}>Đã đốt 100% (405 củ)</span>
+                      </div>
+                    </td>
+                  </tr>
+                )}
               </tfoot>
             </table>
           </div>
