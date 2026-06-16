@@ -82,9 +82,9 @@ export const configs = {
       { name: 'Phần mềm POSAPP', amount: 8661000, note: '' }
     ],
     cashFlow: [
-      { date: '16-Jun', content: 'Sa góp vốn', income: 100000000, expense: null, balance: 100000000 },
-      { date: '16-Jun', content: 'Gia đình Meo Huy', income: 100000000, expense: null, balance: 200000000 },
-      { date: '16-Jun', content: 'Chi cọc lần 1', income: null, expense: 100000000, balance: 100000000 }
+      { date: '16/06', content: 'Sa góp vốn', income: 100000000, expense: null, balance: 100000000 },
+      { date: '16/06', content: 'Gia đình Meo Huy', income: 100000000, expense: null, balance: 200000000 },
+      { date: '16/06', content: 'Chi cọc lần 1', income: null, expense: 100000000, balance: 100000000 }
     ]
   },
   fun: {
@@ -170,9 +170,9 @@ export const configs = {
       { name: 'Bùa chú quản lý (POSAPP)', amount: 8661000, note: 'Đóng họ phần mềm' }
     ],
     cashFlow: [
-      { date: '16-Jun', content: 'Sa nộp mạng', income: 100000000, expense: null, balance: 100000000 },
-      { date: '16-Jun', content: 'Gia đình Meo Huy bơm máu', income: 100000000, expense: null, balance: 200000000 },
-      { date: '16-Jun', content: 'Nạp họ lần 1', income: null, expense: 100000000, balance: 100000000 }
+      { date: '16/06', content: 'Sa nộp mạng', income: 100000000, expense: null, balance: 100000000 },
+      { date: '16/06', content: 'Gia đình Meo Huy bơm máu', income: 100000000, expense: null, balance: 200000000 },
+      { date: '16/06', content: 'Nạp họ lần 1', income: null, expense: 100000000, balance: 100000000 }
     ]
   }
 };
