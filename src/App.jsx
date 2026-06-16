@@ -23,7 +23,7 @@ const Mascot = () => {
     let timeoutId;
     
     const runRandomAction = async () => {
-      const actions = [
+      let actions = [
         'walk_left_to_right', 
         'walk_right_to_left', 
         'fall_from_top_and_walk', 
@@ -33,32 +33,38 @@ const Mascot = () => {
         'jump',
         'idle'
       ];
+      
+      // If mascot is off-screen, force it to do an action that brings it back
+      if (xPos.current < 0 || xPos.current > window.innerWidth) {
+        actions = ['walk_left_to_right', 'walk_right_to_left', 'fall_from_top_and_walk', 'crawl_from_bottom_vertical'];
+      }
+      
       const action = actions[Math.floor(Math.random() * actions.length)];
       
       try {
         switch(action) {
           case 'walk_left_to_right':
             setEmoji('🐆');
-            xPos.current = -100;
+            xPos.current = -200;
             await controls.start({
-              x: window.innerWidth + 100,
+              x: window.innerWidth + 200,
               y: [0, -20, 0, -20, 0, -20, 0, -20, 0],
               scaleX: -1, // facing right
               transition: { duration: 6, ease: 'linear' }
             });
-            xPos.current = window.innerWidth + 100;
+            xPos.current = window.innerWidth + 200;
             break;
 
           case 'walk_right_to_left':
             setEmoji('🐆');
-            xPos.current = window.innerWidth + 100;
+            xPos.current = window.innerWidth + 200;
             await controls.start({
-              x: -100,
+              x: -200,
               y: [0, -20, 0, -20, 0, -20, 0, -20, 0],
               scaleX: 1, // facing left
               transition: { duration: 6, ease: 'linear' }
             });
-            xPos.current = -100;
+            xPos.current = -200;
             break;
 
           case 'fall_from_top_and_walk':
@@ -76,7 +82,7 @@ const Mascot = () => {
             // Wait a sec then walk
             setEmoji('🐆');
             const walkRight = Math.random() > 0.5;
-            const endX = walkRight ? window.innerWidth + 100 : -100;
+            const endX = walkRight ? window.innerWidth + 200 : -200;
             await controls.start({
               x: endX,
               y: [0, -20, 0, -20, 0],
